@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { receive, send } from '$lib/animations/translate';
 	import { t } from '$lib/i18n';
-	import { _, locale, isLoading } from 'svelte-i18n';
+	import { onMount } from 'svelte';
+	import { _, locale, isLoading, getLocaleFromNavigator } from 'svelte-i18n';
+	import { on } from 'svelte/events';
 
 	const BUBBLE_LANG_ID = 'bubble_lang';
 
@@ -22,13 +24,22 @@
 		lang = newLang;
 		locale.set(lang);
 	}
+
+	onMount(() => {
+		if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+			swapDarkMode();
+		}
+
+		if (getLocaleFromNavigator()?.startsWith('en')) {
+			setLang('en');
+		}
+	});
 </script>
 
 {#if !$isLoading}
 	<header>
 		<div class="brand">
 			<h1>{$_(t.HEADLINE)}</h1>
-			<p>{$_(t.SUBLINE)}</p>
 		</div>
 		<div class="controls">
 			<div class="langs">
@@ -69,6 +80,10 @@
 		top: 0;
 		z-index: 10;
 		background-color: var(--bg);
+
+		@media (max-width: 600px) {
+			padding: 0.5em 1em;
+		}
 	}
 
 	.brand {

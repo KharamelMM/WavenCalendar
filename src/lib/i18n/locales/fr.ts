@@ -2,7 +2,6 @@ import { type LocaleType } from '../keys';
 
 const locale: LocaleType = {
 	HEADLINE: 'Waven Calendar',
-	SUBLINE: 'Quand vais-je recevoir mes gemmes ?',
 
 	JANUARY: 'Janvier',
 	FEBRUARY: 'Février',

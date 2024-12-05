@@ -5,7 +5,6 @@ import type { RewardType } from '$lib/types/RewardType';
 
 enum Keys {
 	HEADLINE,
-	SUBLINE,
 
 	JANUARY,
 	FEBRUARY,
