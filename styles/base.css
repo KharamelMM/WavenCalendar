@@ -72,12 +72,18 @@ h6 {
 
 button {
 	color: var(--headline);
+	background-color: transparent;
 	border: none;
 	border-radius: 0.5em;
 	box-shadow:
 		0 0 0 0 var(--bg),
 		inset 0 0 0 0 var(--bg);
 }
+
+button:enabled {
+	cursor: pointer;
+}
+
 button:hover:enabled {
 	box-shadow:
 		0 0 0.2em 0 var(--bg),
