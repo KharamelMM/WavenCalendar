@@ -69,7 +69,6 @@
 
 		width: 100%;
 		border-color: transparent;
-		background-color: transparent;
 		color: var(--headline);
 		font-family: roboto;
 		border-radius: 0.5em;

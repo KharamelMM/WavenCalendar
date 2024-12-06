@@ -8,11 +8,14 @@
 	import { MONTHS } from '$lib/utils/const';
 	import type { Calendar as CalendarType } from '$lib/types/Calendar';
 	import { offsetInCycle } from '$lib/utils/date';
+	import { supabase } from '$lib/supabase/client';
+	import Modal from '$lib/components/Modal.svelte';
 
 	const calendar: CalendarType = { startDate: new Date(), rewards: [] };
 
 	let year = new Date().getFullYear();
 	let selectedDay: Date | undefined;
+	let animateMonthsSwipeLeftToRight: boolean = true;
 
 	function onselectday(date: Date) {
 		selectedDay = date;
@@ -36,34 +39,54 @@
 	}
 </script>
 
-{#if !selectedDay}
-	<FlyingSection>
-		<header>
-			<button onclick={() => year--}><Icon>arrow_back_ios</Icon></button>
-			<h2>{year}</h2>
-			<button onclick={() => year++}><Icon>arrow_forward_ios</Icon></button>
-		</header>
-		<div class="months">
-			{#each MONTHS as month, i}
-				<Card i18nTitleKey={month}>
-					<Calendar {...{ month: i, year, onselectday, calendar }} />
-				</Card>
-			{/each}
-		</div>
-	</FlyingSection>
-{:else}
-	<FlyingSection>
-		<Card title={selectedDay.toDateString()}>
-			<DayForm
-				reward={calendar.rewards[getSelectedOffset()]}
-				oncancel={() => {
-					selectedDay = undefined;
-				}}
-				{onsave}
-			/>
-		</Card>
-	</FlyingSection>
+{#if selectedDay}
+	<Modal
+		title={selectedDay.toDateString()}
+		onclose={() => {
+			selectedDay = undefined;
+		}}
+	>
+		<DayForm
+			reward={calendar.rewards[getSelectedOffset()]}
+			oncancel={() => {
+				selectedDay = undefined;
+			}}
+			{onsave}
+		/>
+	</Modal>
 {/if}
+<FlyingSection>
+	<header>
+		<button
+			onclick={() => {
+				animateMonthsSwipeLeftToRight = true;
+				year--;
+			}}><Icon>arrow_back_ios</Icon></button
+		>
+		<h2>{year}</h2>
+		<button
+			onclick={() => {
+				animateMonthsSwipeLeftToRight = false;
+				year++;
+			}}><Icon>arrow_forward_ios</Icon></button
+		>
+	</header>
+	<div class="calendar">
+		{#key year}
+			<div class="year">
+				<FlyingSection leftToRight={animateMonthsSwipeLeftToRight}>
+					<div class="months">
+						{#each MONTHS as month, i}
+							<Card i18nTitleKey={month}>
+								<Calendar {...{ month: i, year, onselectday, calendar }} />
+							</Card>
+						{/each}
+					</div>
+				</FlyingSection>
+			</div>
+		{/key}
+	</div>
+</FlyingSection>
 
 <style>
 	:root {
@@ -76,7 +99,6 @@
 	}
 
 	header > button {
-		background-color: transparent;
 		box-shadow: none !important;
 		border: none;
 		color: var(--text);
@@ -96,5 +118,15 @@
 		flex-wrap: wrap;
 		gap: 0.5em;
 		justify-content: center;
+		padding-bottom: 1em;
+	}
+
+	.calendar {
+		position: relative;
+		width: 100%;
+	}
+
+	.year {
+		position: absolute;
 	}
 </style>

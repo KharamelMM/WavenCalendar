@@ -1,8 +1,14 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
+
+	export let leftToRight: boolean = true;
+	const X = 1000;
 </script>
 
-<section in:fly={{ delay: 250, x: -1000 }} out:fly={{ duration: 250, x: 1000 }}>
+<section
+	in:fly={{ delay: 250, x: X * (leftToRight ? -1 : 1) }}
+	out:fly={{ duration: 250, x: X * (leftToRight ? 1 : -1) }}
+>
 	<slot />
 </section>
 

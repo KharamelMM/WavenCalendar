@@ -1,11 +1,15 @@
 <script lang="ts">
 	import { receive, send } from '$lib/animations/translate';
+	import AuthenticationModal from '$lib/components/AuthenticationModal.svelte';
 	import { t } from '$lib/i18n';
+	import { supabase } from '$lib/supabase/client';
+	import type { AuthSession } from '@supabase/supabase-js';
 	import { onMount } from 'svelte';
 	import { _, locale, isLoading, getLocaleFromNavigator } from 'svelte-i18n';
 	import { on } from 'svelte/events';
 
 	const BUBBLE_LANG_ID = 'bubble_lang';
+	let session: AuthSession | null;
 
 	let lightMode = false;
 
@@ -26,6 +30,14 @@
 	}
 
 	onMount(() => {
+		supabase.auth.getSession().then(({ data }) => {
+			session = data.session;
+		});
+
+		supabase.auth.onAuthStateChange((_event, _session) => {
+			session = _session;
+		});
+
 		if (window.matchMedia('(prefers-color-scheme: light)').matches) {
 			swapDarkMode();
 		}
@@ -35,6 +47,10 @@
 		}
 	});
 </script>
+
+{#if !session}
+	<AuthenticationModal />
+{/if}
 
 {#if !$isLoading}
 	<header>
@@ -97,10 +113,6 @@
 	.brand > h1 {
 		font-size: 1.5em;
 	}
-	.brand > p {
-		font-size: 0.75em;
-		margin-left: 2em;
-	}
 
 	.controls,
 	.langs {
@@ -114,7 +126,6 @@
 	}
 
 	.controls button {
-		background-color: transparent;
 		box-shadow: none;
 	}
 	.langs button:disabled {
