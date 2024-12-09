@@ -12,7 +12,8 @@ export function logInStores() {
 		let error: Error | null = null;
 
 		try {
-			error = (await supabase.auth.signInWithOtp({ email })).error;
+			error = (await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.toString() } }))
+				.error;
 		} catch (e: unknown) {
 			if (e instanceof Error) {
 				error = e;
