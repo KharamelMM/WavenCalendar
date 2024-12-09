@@ -29,7 +29,7 @@
 		{onclick}
 		disabled={currentDate > today}
 	>
-		{dayOfMonth}
+		<div>{dayOfMonth}</div>
 	</button>
 </Tooltip>
 
@@ -58,38 +58,38 @@
 	}
 
 	.gems {
-		--color: fuchsia;
+		--color: var(--amethyst);
 	}
 
 	.kamas {
-		--color: gold;
+		--color: var(--sun-flower);
 	}
 
 	.infinite {
-		--color: orange;
+		--color: var(--carrot);
 	}
 
 	.krosmic {
-		--color: purple;
+		--color: var(--wisteria);
 	}
 
 	.rare {
-		--color: blue;
+		--color: var(--peter-river);
 	}
 
 	.common {
-		--color: gray;
+		--color: var(--asbestos);
 	}
 
 	.wakfu {
-		--color: lightblue;
+		--color: var(--belize-hole);
 	}
 
 	.chest {
-		--color: coral;
+		--color: var(--pomegranate);
 	}
 
 	.runes {
-		--color: green;
+		--color: var(--nephritis);
 	}
 </style>

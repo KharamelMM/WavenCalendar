@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Calendar } from '$lib/types/Calendar';
-	import { RewardType } from '$lib/types/RewardType';
 	import { CYCLE_START, DAYS } from '$lib/utils/const';
 	import { daysInMonth, getDayOfMonth, nbDistinctWeeksOfMonth, offsetInCycle } from '$lib/utils/date';
 	import CalendarDay from './CalendarDay.svelte';
@@ -15,19 +14,6 @@
 
 	export let weekOffset: number = 1;
 	const weekDays = DAYS.length;
-
-	const today = new Date();
-
-	function getClass(date: Date) {
-		const reward = getReward(date);
-		if (reward) {
-			if (reward.type === RewardType.EQUIPMENT) {
-				return reward.rarety.toLowerCase();
-			} else {
-				return reward.type.toLowerCase();
-			}
-		}
-	}
 
 	function getReward(date: Date) {
 		let offset = offsetInCycle(date, CYCLE_START);
