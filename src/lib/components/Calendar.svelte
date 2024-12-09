@@ -3,6 +3,7 @@
 	import { RewardType } from '$lib/types/RewardType';
 	import { CYCLE_START, DAYS } from '$lib/utils/const';
 	import { daysInMonth, getDayOfMonth, nbDistinctWeeksOfMonth, offsetInCycle } from '$lib/utils/date';
+	import CalendarDay from './CalendarDay.svelte';
 	import I18n from './I18n.svelte';
 
 	export let year: number;
@@ -18,15 +19,19 @@
 	const today = new Date();
 
 	function getClass(date: Date) {
-		let offset = offsetInCycle(date, CYCLE_START);
-		if (calendar[offset]) {
-			const reward = calendar[offset];
+		const reward = getReward(date);
+		if (reward) {
 			if (reward.type === RewardType.EQUIPMENT) {
 				return reward.rarety.toLowerCase();
 			} else {
 				return reward.type.toLowerCase();
 			}
 		}
+	}
+
+	function getReward(date: Date) {
+		let offset = offsetInCycle(date, CYCLE_START);
+		return calendar[offset];
 	}
 </script>
 
@@ -47,14 +52,8 @@
 					<td>
 						{#if dayOfMonth > 0 && dayOfMonth <= maxDayOfMonth}
 							{@const currentDate = new Date(year, month, dayOfMonth)}
-							<button
-								class:today={currentDate.toDateString() === today.toDateString()}
-								class={getClass(currentDate)}
-								onclick={() => onselectday(currentDate)}
-								disabled={currentDate > today}
-							>
-								{dayOfMonth}
-							</button>
+							{@const reward = getReward(currentDate)}
+							<CalendarDay {currentDate} {dayOfMonth} {reward} onclick={() => onselectday(currentDate)} />
 						{/if}
 					</td>
 				{/each}
@@ -62,64 +61,3 @@
 		{/each}
 	</tbody>
 </table>
-
-<style>
-	button {
-		--color: transparent;
-
-		width: 100%;
-		border-style: solid;
-		border-color: var(--color);
-		color: var(--headline);
-		font-family: roboto;
-		border-radius: 0.5em;
-		border-width: 0.2em;
-	}
-
-	button:disabled {
-		opacity: 0.5;
-	}
-
-	.today {
-		--color: var(--headline);
-		background-color: var(--color);
-		color: var(--bg);
-		transform: scale(1.2);
-	}
-
-	.gems {
-		--color: fuchsia;
-	}
-
-	.kamas {
-		--color: gold;
-	}
-
-	.infinite {
-		--color: orange;
-	}
-
-	.krosmic {
-		--color: purple;
-	}
-
-	.rare {
-		--color: blue;
-	}
-
-	.common {
-		--color: gray;
-	}
-
-	.wakfu {
-		--color: lightblue;
-	}
-
-	.chest {
-		--color: coral;
-	}
-
-	.runes {
-		--color: green;
-	}
-</style>
