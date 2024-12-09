@@ -1,6 +1,3 @@
 import type { Reward } from './Reward';
 
-export type Calendar = {
-	startDate: Date;
-	rewards: (Reward | undefined)[];
-};
+export type Calendar = (Reward | undefined)[];

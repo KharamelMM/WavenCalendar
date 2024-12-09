@@ -1,9 +1,11 @@
-import type { EquipmentType } from './EquipmentType';
-import type { ItemType } from './ItemType';
-import type { RaretyType } from './RaretyType';
+import type { Enums } from '$lib/supabase/database.types';
 import type { RewardType } from './RewardType';
 
-export type Reward = GemsReward | KamasReward | WakfuReward | EquipmentReward | ChestReward | RuneReward;
+export type Reward = BaseReward & (GemsReward | KamasReward | WakfuReward | EquipmentReward | ChestReward | RuneReward);
+
+type BaseReward = {
+	cycle_index: number;
+};
 
 type GemsReward = {
 	type: RewardType.GEMS;
@@ -21,20 +23,20 @@ type WakfuReward = {
 
 type EquipmentReward = {
 	type: RewardType.EQUIPMENT;
-	rarety: RaretyType;
-	kind: ItemType;
+	rarety: Enums<'E_Rarety'>;
+	item: Enums<'E_Item'>;
 	amount: number;
 	description?: string;
 };
 
 type ChestReward = {
 	type: RewardType.CHEST;
-	kind: EquipmentType;
+	equipment: Enums<'E_Equipment'>;
 	amount: number;
 };
 
 type RuneReward = {
 	type: RewardType.RUNES;
-	kind: EquipmentType;
+	equipment: Enums<'E_Equipment'>;
 	amount: number;
 };

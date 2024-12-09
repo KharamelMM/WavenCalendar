@@ -2,6 +2,9 @@
 	"name": "wavencalendar",
 	"version": "0.0.1",
 	"type": "module",
+	"config": {
+		"project": "tgfuuytxgmpvdrdsmimy"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -11,7 +14,8 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run"
+		"test": "npm run test:unit -- --run",
+		"supabase:update-types": "npx supabase gen types --lang=typescript --project-id tgfuuytxgmpvdrdsmimy > src/lib/supabase/database.types.ts && npx prettier --write src/lib/supabase/database.types.ts"
 	},
 	"devDependencies": {
 		"@supabase/supabase-js": "^2.47.1",
@@ -26,6 +30,7 @@
 		"globals": "^15.0.0",
 		"prettier": "^3.3.2",
 		"prettier-plugin-svelte": "^3.2.6",
+		"supabase": "^2.0.5",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"svelte-i18n": "^4.0.1",

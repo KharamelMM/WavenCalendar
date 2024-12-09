@@ -9,39 +9,45 @@
 	import ComboBox from './forms/ComboBox.svelte';
 	import Field from './forms/Field.svelte';
 	import { enumKeys } from '$lib/utils/enum';
+	import { offsetInCycle } from '$lib/utils/date';
+	import { CYCLE_START } from '$lib/utils/const';
 
 	export let oncancel: () => void;
 	export let onsave: (reward: Reward) => void;
 
 	export let reward: Reward | undefined = undefined;
+	export let date: Date;
 
 	// Set default values
-	let rewardType: RewardType = reward?.type ?? RewardType.EQUIPMENT;
-	let raretyType: RaretyType = reward?.type === RewardType.EQUIPMENT ? reward.rarety : RaretyType.COMMON;
-	let equipmentType: EquipmentType =
-		reward?.type === RewardType.RUNES || reward?.type === RewardType.CHEST ? reward.kind : EquipmentType.EQUIPMENTS;
-	let itemType: ItemType = reward?.type === RewardType.EQUIPMENT ? reward.kind : ItemType.RING;
-	let amount: number = reward?.amount ?? 1;
-	let description: string | undefined = reward?.type === RewardType.EQUIPMENT ? reward.description : undefined;
+	let rewardType = reward?.type ?? RewardType.EQUIPMENT;
+	let raretyType = reward?.type === RewardType.EQUIPMENT ? reward.rarety : RaretyType.COMMON;
+	let equipmentType =
+		reward?.type === RewardType.RUNES || reward?.type === RewardType.CHEST
+			? reward.equipment
+			: EquipmentType.EQUIPMENTS;
+	let itemType = reward?.type === RewardType.EQUIPMENT ? reward.item : ItemType.RING;
+	let amount = reward?.amount ?? 1;
+	let description = reward?.type === RewardType.EQUIPMENT ? reward.description : undefined;
 
 	function save() {
 		let reward: Reward;
+		const base = { cycle_index: offsetInCycle(date, CYCLE_START), amount };
 		switch (rewardType) {
 			case RewardType.GEMS:
-				reward = { type: rewardType, amount: amount as 100 | 150 | 200 | 250 };
+				reward = { ...base, type: rewardType, amount: amount as 100 | 150 | 200 | 250 };
 				break;
 			case RewardType.EQUIPMENT:
-				reward = { type: rewardType, rarety: raretyType, kind: itemType, amount, description };
+				reward = { ...base, type: rewardType, rarety: raretyType, item: itemType, description };
 				break;
 			case RewardType.CHEST:
-				reward = { type: rewardType, kind: equipmentType, amount };
+				reward = { ...base, type: rewardType, equipment: equipmentType };
 				break;
 			case RewardType.RUNES:
-				reward = { type: rewardType, kind: equipmentType, amount };
+				reward = { ...base, type: rewardType, equipment: equipmentType };
 				break;
 			case RewardType.KAMAS:
 			case RewardType.WAKFU:
-				reward = { type: rewardType, amount };
+				reward = { ...base, type: rewardType };
 				break;
 		}
 		onsave(reward);

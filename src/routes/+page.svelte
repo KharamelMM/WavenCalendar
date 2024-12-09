@@ -5,13 +5,15 @@
 	import FlyingSection from '$lib/components/FlyingSection.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import type { Reward } from '$lib/types/Reward';
-	import { MONTHS } from '$lib/utils/const';
+	import { CYCLE_START, MONTHS } from '$lib/utils/const';
 	import type { Calendar as CalendarType } from '$lib/types/Calendar';
 	import { offsetInCycle } from '$lib/utils/date';
-	import { supabase } from '$lib/supabase/client';
 	import Modal from '$lib/components/Modal.svelte';
+	import LogOut from '$lib/components/LogOut.svelte';
+	import { getCalendar, setReward } from '$lib/supabase/calendar';
+	import { onMount } from 'svelte';
 
-	const calendar: CalendarType = { startDate: new Date(), rewards: [] };
+	let calendar: CalendarType = [];
 
 	let year = new Date().getFullYear();
 	let selectedDay: Date | undefined;
@@ -26,8 +28,10 @@
 			throw new Error('No selected day');
 		}
 
-		calendar.rewards[offsetInCycle(selectedDay, calendar.startDate)] = reward;
+		calendar[offsetInCycle(selectedDay, CYCLE_START)] = reward;
 		selectedDay = undefined;
+
+		setReward(reward);
 	}
 
 	function getSelectedOffset() {
@@ -35,8 +39,12 @@
 			throw new Error('No selected day');
 		}
 		// number of days between start date and selected date
-		return offsetInCycle(selectedDay, calendar.startDate);
+		return offsetInCycle(selectedDay, CYCLE_START);
 	}
+
+	onMount(async () => {
+		calendar = await getCalendar();
+	});
 </script>
 
 {#if selectedDay}
@@ -47,11 +55,11 @@
 		}}
 	>
 		<DayForm
-			reward={calendar.rewards[getSelectedOffset()]}
+			reward={calendar[getSelectedOffset()]}
 			oncancel={() => {
 				selectedDay = undefined;
 			}}
-			{onsave}
+			{...{ onsave, date: selectedDay }}
 		/>
 	</Modal>
 {/if}
@@ -87,6 +95,8 @@
 		{/key}
 	</div>
 </FlyingSection>
+
+<LogOut />
 
 <style>
 	:root {

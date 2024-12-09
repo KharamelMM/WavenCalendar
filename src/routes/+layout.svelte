@@ -6,7 +6,6 @@
 	import type { AuthSession } from '@supabase/supabase-js';
 	import { onMount } from 'svelte';
 	import { _, locale, isLoading, getLocaleFromNavigator } from 'svelte-i18n';
-	import { on } from 'svelte/events';
 
 	const BUBBLE_LANG_ID = 'bubble_lang';
 	let session: AuthSession | null;

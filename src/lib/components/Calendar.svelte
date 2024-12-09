@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Calendar } from '$lib/types/Calendar';
 	import { RewardType } from '$lib/types/RewardType';
-	import { DAYS } from '$lib/utils/const';
+	import { CYCLE_START, DAYS } from '$lib/utils/const';
 	import { daysInMonth, getDayOfMonth, nbDistinctWeeksOfMonth, offsetInCycle } from '$lib/utils/date';
 	import I18n from './I18n.svelte';
 
@@ -18,9 +18,9 @@
 	const today = new Date();
 
 	function getClass(date: Date) {
-		let offset = offsetInCycle(date, calendar.startDate);
-		if (calendar.rewards[offset]) {
-			const reward = calendar.rewards[offset];
+		let offset = offsetInCycle(date, CYCLE_START);
+		if (calendar[offset]) {
+			const reward = calendar[offset];
 			if (reward.type === RewardType.EQUIPMENT) {
 				return reward.rarety.toLowerCase();
 			} else {
@@ -68,7 +68,8 @@
 		--color: transparent;
 
 		width: 100%;
-		border-color: transparent;
+		border-style: solid;
+		border-color: var(--color);
 		color: var(--headline);
 		font-family: roboto;
 		border-radius: 0.5em;
@@ -84,16 +85,6 @@
 		background-color: var(--color);
 		color: var(--bg);
 		transform: scale(1.2);
-	}
-
-	.gems,
-	.kamas,
-	.infinite,
-	.krosmic,
-	.rare,
-	.common {
-		border-style: solid;
-		border-color: var(--color);
 	}
 
 	.gems {
@@ -118,5 +109,17 @@
 
 	.common {
 		--color: gray;
+	}
+
+	.wakfu {
+		--color: lightblue;
+	}
+
+	.chest {
+		--color: coral;
+	}
+
+	.runes {
+		--color: green;
 	}
 </style>
