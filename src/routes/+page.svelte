@@ -10,7 +10,7 @@
 	import { offsetInCycle } from '$lib/utils/date';
 	import Modal from '$lib/components/Modal.svelte';
 	import LogOut from '$lib/components/LogOut.svelte';
-	import { getCalendar, setReward } from '$lib/supabase/calendar';
+	import { deleteReward, getCalendar, setReward } from '$lib/supabase/calendar';
 	import { onMount } from 'svelte';
 
 	let calendar: CalendarType = [];
@@ -19,11 +19,11 @@
 	let selectedDay: Date | undefined;
 	let animateMonthsSwipeLeftToRight: boolean = true;
 
-	function onselectday(date: Date) {
+	function selectDay(date: Date) {
 		selectedDay = date;
 	}
 
-	function onsave(reward: Reward) {
+	function saveReward(reward: Reward) {
 		if (!selectedDay) {
 			throw new Error('No selected day');
 		}
@@ -40,6 +40,16 @@
 		}
 		// number of days between start date and selected date
 		return offsetInCycle(selectedDay, CYCLE_START);
+	}
+
+	function deleteSelectedReward() {
+		if (!selectedDay) {
+			throw new Error('No selected day');
+		}
+		const offset = getSelectedOffset();
+		deleteReward(offset);
+		calendar[offset] = undefined;
+		selectedDay = undefined;
 	}
 
 	onMount(async () => {
@@ -59,7 +69,7 @@
 			oncancel={() => {
 				selectedDay = undefined;
 			}}
-			{...{ onsave, date: selectedDay }}
+			{...{ onsave: saveReward, date: selectedDay, ondelete: deleteSelectedReward }}
 		/>
 	</Modal>
 {/if}
@@ -86,7 +96,7 @@
 					<div class="months">
 						{#each MONTHS as month, i}
 							<Card i18nTitleKey={month}>
-								<Calendar {...{ month: i, year, onselectday, calendar }} />
+								<Calendar {...{ month: i, year, onselectday: selectDay, calendar }} />
 							</Card>
 						{/each}
 					</div>

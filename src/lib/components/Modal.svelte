@@ -15,7 +15,8 @@
 <style>
 	section {
 		top: 0;
-		position: absolute;
+		position: fixed;
+
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -25,5 +26,7 @@
 		z-index: 100;
 		background-color: color-mix(in srgb, var(--bg) 80%, transparent 20%);
 		backdrop-filter: blur(5px);
+
+		overflow: hidden;
 	}
 </style>

@@ -11,6 +11,14 @@ export async function setReward(reward: TablesInsert<'T_Reward'>) {
 	return response.data[0];
 }
 
+export async function deleteReward(cycleOffset: number) {
+	const response = await supabase.from('T_Reward').delete().match({ cycle_index: cycleOffset }).select();
+	if (response.error) {
+		throw response.error;
+	}
+	return response.data[0];
+}
+
 export async function getCalendar(): Promise<Calendar> {
 	const response = await supabase.from('T_Reward').select();
 	if (response.error) {

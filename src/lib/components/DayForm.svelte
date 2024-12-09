@@ -14,6 +14,7 @@
 
 	export let oncancel: () => void;
 	export let onsave: (reward: Reward) => void;
+	export let ondelete: (() => void) | undefined = undefined;
 
 	export let reward: Reward | undefined = undefined;
 	export let date: Date;
@@ -84,6 +85,9 @@
 	<div class="controls">
 		<button class="secondary" onclick={() => oncancel()}>{$_(t.CANCEL)}</button>
 		<button class="primary" onclick={save}>{$_(t.SAVE)}</button>
+		{#if ondelete}
+			<button class="delete material-icon" onclick={ondelete}>delete</button>
+		{/if}
 	</div>
 </section>
 
@@ -104,5 +108,12 @@
 	button {
 		font-size: 1.25em;
 		padding: 0.25em 1em;
+	}
+
+	button.delete {
+		background-color: var(--pomegranate);
+		width: 2em;
+		height: 2em;
+		padding: 0;
 	}
 </style>
