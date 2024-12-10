@@ -17,11 +17,12 @@
 
 	.text {
 		visibility: hidden;
-		width: 120px;
+		white-space: nowrap;
+		width: auto;
 		background-color: var(--bg);
 		color: var(--headline);
 		text-align: center;
-		padding: 5px 0;
+		padding: 5px 10px;
 		border-radius: 6px;
 
 		/* Position the tooltip text */
@@ -29,7 +30,7 @@
 		z-index: 1;
 		bottom: 125%;
 		left: 50%;
-		margin-left: -60px;
+		transform: translateX(-50%);
 
 		/* Fade in tooltip */
 		opacity: 0;
@@ -43,7 +44,7 @@
 		position: absolute;
 		top: 100%;
 		left: 50%;
-		margin-left: -5px;
+		transform: translateX(-50%);
 		border-width: 5px;
 		border-style: solid;
 		border-color: var(--bg) transparent transparent transparent;

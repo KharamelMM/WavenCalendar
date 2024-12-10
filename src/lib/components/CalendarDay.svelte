@@ -20,9 +20,25 @@
 			}
 		}
 	}
+
+	function getTooltip() {
+		if (reward) {
+			let tooltip = `${reward.amount}× ${$_(reward.type)}`;
+			switch (reward.type) {
+				case RewardType.RUNES:
+				case RewardType.CHEST:
+					tooltip += ` ${$_(reward.equipment)}`;
+					break;
+				case RewardType.EQUIPMENT:
+					tooltip = `${reward.amount}× ${$_(reward.item)} ${$_(reward.rarety)}`;
+					break;
+			}
+			return tooltip;
+		}
+	}
 </script>
 
-<Tooltip title={reward ? `${reward.amount}× ${$_(reward.type)}` : undefined}>
+<Tooltip title={getTooltip()}>
 	<button
 		class:today={currentDate.toDateString() === today.toDateString()}
 		class={getClass()}

@@ -39,7 +39,7 @@ const locale: LocaleType = {
 	GEMS: 'Gemmes',
 	KAMAS: 'Kamas',
 	EQUIPMENT: 'Equipement',
-	CHEST: 'Coffre',
+	CHEST: 'Super Coffre',
 	WAKFU: 'Wakfu',
 	RUNES: 'Runes',
 
