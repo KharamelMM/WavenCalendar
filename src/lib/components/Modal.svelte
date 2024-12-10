@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { t } from '$lib/i18n';
 	import Card from './Card.svelte';
-	import { fade, scale } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 
 	export let title: string | undefined = undefined;
 	export let i18nTitleKey: keyof typeof t | undefined = undefined;
@@ -23,7 +23,7 @@
 		justify-content: center;
 		height: 100vh;
 		width: 100vw;
-		z-index: 100;
+		z-index: 5;
 		background-color: color-mix(in srgb, var(--bg) 80%, transparent 20%);
 		backdrop-filter: blur(5px);
 

@@ -47,6 +47,7 @@
 
 		width: fit-content;
 		border-radius: 0.5em;
+		max-width: 50em;
 	}
 
 	.body {

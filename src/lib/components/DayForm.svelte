@@ -58,7 +58,7 @@
 <section>
 	<ComboBox title={$_(t.REWARD_LABEL_TYPE)} values={enumKeys(RewardType)} bind:value={rewardType} />
 	{#if rewardType === RewardType.EQUIPMENT}
-		<ComboBox title={$_(t.REWARD_LABEL_RARETY)} values={Object.keys(RaretyType)} bind:value={raretyType} />
+		<ComboBox title={$_(t.REWARD_LABEL_RARITY)} values={Object.keys(RaretyType)} bind:value={raretyType} />
 		<ComboBox title={$_(t.REWARD_LABEL_ITEM_TYPE)} values={Object.keys(ItemType)} bind:value={itemType} />
 	{:else if rewardType === RewardType.CHEST || rewardType === RewardType.RUNES}
 		<ComboBox

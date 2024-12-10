@@ -1,5 +1,8 @@
 <script lang="ts">
+	import { t } from '$lib/i18n';
+	import { _ } from 'svelte-i18n';
 	import { logInStores } from '$lib/supabase/auth';
+	import Info from './Info.svelte';
 	import Modal from './Modal.svelte';
 
 	let email: string;
@@ -13,22 +16,27 @@
 	}
 </script>
 
-<Modal title="Magic Link Connexion">
+<Modal title={$_(t.INFO_WELCOME)}>
 	{#if $loading}
 		<div class="loading">
 			<div class="circle"></div>
 		</div>
 	{:else if $error}
 		<p>{$error.message}</p>
-		<button class="primary" onclick={reset}>Réessayer</button>
+		<button class="primary" onclick={reset}>{$_(t.AUTHENTICATION_RETRY)}</button>
 	{:else if $valid}
-		<p>Check your email for login link!</p>
+		<p>{$_(t.AUTHENTICATION_CHECK_EMAIL)}</p>
 	{:else}
-		<p>Actuellement, nous avons besoin de votre aide afin recomposer le cycle de récompenses journalière</p>
-		<p>Pour cela, il est nécessaire pour nous que vous vous connectiez afin de partager les informations</p>
-		<div>Votre Email:</div>
-		<input type="email" onkeydown={onTextFieldKeyDown} placeholder="jean.dupont@gmail.com" bind:value={email} />
-		<button class="primary" onclick={() => logIn(email)}>Recevoir un email de connexion</button>
+		<Info />
+
+		<div><b>{$_(t.AUTHENTICATION_LABEL_YOUR_EMAIL)} :</b></div>
+		<input
+			type="email"
+			onkeydown={onTextFieldKeyDown}
+			placeholder={$_(t.AUTHENTICATION_PLACEHOLDER_EMAIL)}
+			bind:value={email}
+		/>
+		<button class="primary" onclick={() => logIn(email)}>{$_(t.AUTHENTICATION_GET_LINK_BY_EMAIL)}</button>
 	{/if}
 </Modal>
 
