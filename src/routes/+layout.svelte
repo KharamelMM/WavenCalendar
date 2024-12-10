@@ -47,11 +47,11 @@
 	});
 </script>
 
-{#if !session}
-	<AuthenticationModal />
-{/if}
-
 {#if !$isLoading}
+	{#if !session}
+		<AuthenticationModal />
+	{/if}
+
 	<header>
 		<div class="brand">
 			<h1>{$_(t.HEADLINE)}</h1>
