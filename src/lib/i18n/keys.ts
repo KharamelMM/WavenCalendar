@@ -63,7 +63,12 @@ enum Keys {
 	INFO_OPENSOURCE_TEXT_1,
 	INFO_OPENSOURCE_TEXT_2,
 
-	INFO_END
+	INFO_END,
+
+	PROFILE_DEFAULT,
+	PROFILE_INFO,
+	PROFILE_CREATE,
+	PROFILE_CREATE_PLACEHOLDER
 }
 
 type LocaleKey = keyof (typeof Keys & typeof RewardType & typeof RaretyType & typeof ItemType & typeof EquipmentType);

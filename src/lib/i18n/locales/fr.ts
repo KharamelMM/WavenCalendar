@@ -86,6 +86,12 @@ const locale: LocaleType = {
 		cette application est disponible sur `,
 	INFO_OPENSOURCE_TEXT_2: `N'hésitez pas
 		à le consulter, à signaler des problèmes ou même à y contribuer pour améliorer le projet !`,
-	INFO_END: 'Merci de faire partie de cette aventure et de nous aider à découvrir les récompenses de Waven !'
+	INFO_END: 'Merci de faire partie de cette aventure et de nous aider à découvrir les récompenses de Waven !',
+
+	PROFILE_DEFAULT: 'Profil par défaut',
+
+	PROFILE_INFO: 'Vous pouvez gérer plusieurs calendriers en même temps avec différents profils.',
+	PROFILE_CREATE: 'Créer un nouveau profil',
+	PROFILE_CREATE_PLACEHOLDER: 'Nom du profil'
 };
 export default locale;

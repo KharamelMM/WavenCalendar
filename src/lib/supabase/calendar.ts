@@ -1,31 +1,46 @@
 import type { Calendar } from '$lib/types/Calendar';
 import type { Reward } from '$lib/types/Reward';
+import type { PostgrestSingleResponse } from '@supabase/supabase-js';
 import { supabase } from './client';
-import type { TablesInsert } from './database.types';
+import type { Tables, TablesInsert } from './database.types';
 
-export async function setReward(reward: TablesInsert<'T_Reward'>) {
-	const response = await supabase.from('T_Reward').upsert(reward).select();
+const TABLE_NAME = 'T_Reward';
+
+export async function setReward(profile: string | undefined, reward: TablesInsert<typeof TABLE_NAME>) {
+	const response = await supabase
+		.from(TABLE_NAME)
+		.upsert({ ...reward, profile_name: profile }, { onConflict: 'user_id, profile_name, cycle_index' })
+		.select();
 	if (response.error) {
 		throw response.error;
 	}
 	return response.data[0];
 }
 
-export async function deleteReward(cycleOffset: number) {
-	const response = await supabase.from('T_Reward').delete().match({ cycle_index: cycleOffset }).select();
+export async function deleteReward(profile: string | undefined, cycleOffset: number) {
+	const response = await supabase
+		.from(TABLE_NAME)
+		.delete()
+		.match({ profile_name: profile, cycle_index: cycleOffset })
+		.select();
 	if (response.error) {
 		throw response.error;
 	}
 	return response.data[0];
 }
 
-export async function getCalendar(): Promise<Calendar> {
-	const response = await supabase.from('T_Reward').select();
+export async function getCalendar(profile: string | null = null): Promise<Calendar> {
+	let response: PostgrestSingleResponse<Tables<typeof TABLE_NAME>[]>;
+	if (profile) {
+		response = await supabase.from(TABLE_NAME).select().eq('profile_name', profile);
+	} else {
+		response = await supabase.from(TABLE_NAME).select().is('profile_name', null);
+	}
+
 	if (response.error) {
 		throw response.error;
 	}
 	const datas = response.data;
-	console.log(datas);
 
 	const calendar: Calendar = [];
 	for (const data of datas) {

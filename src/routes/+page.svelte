@@ -11,12 +11,18 @@
 	import Modal from '$lib/components/Modal.svelte';
 	import LogOut from '$lib/components/LogOut.svelte';
 	import { deleteReward, getCalendar, setReward } from '$lib/supabase/calendar';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
+	import { currentProfile } from '$lib/utils/profile.store';
+	import { t } from '$lib/i18n';
+	import { _ } from 'svelte-i18n';
+	import ProfileModal from '$lib/components/ProfileModal.svelte';
+	import { get } from 'svelte/store';
 
 	let calendar: CalendarType = [];
 
 	let year = new Date().getFullYear();
 	let selectedDay: Date | undefined;
+	let openProfileModal = false;
 	let animateMonthsSwipeLeftToRight: boolean = true;
 
 	function selectDay(date: Date) {
@@ -31,7 +37,7 @@
 		calendar[offsetInCycle(selectedDay, CYCLE_START)] = reward;
 		selectedDay = undefined;
 
-		setReward(reward);
+		setReward(get(currentProfile), reward);
 	}
 
 	function getSelectedOffset() {
@@ -47,13 +53,20 @@
 			throw new Error('No selected day');
 		}
 		const offset = getSelectedOffset();
-		deleteReward(offset);
+		deleteReward(get(currentProfile), offset);
 		calendar[offset] = undefined;
 		selectedDay = undefined;
 	}
 
+	const unsubscribe = currentProfile.subscribe(async (profile) => {
+		calendar = await getCalendar(profile);
+	});
+
 	onMount(async () => {
-		calendar = await getCalendar();
+		calendar = await getCalendar(get(currentProfile));
+	});
+	onDestroy(() => {
+		unsubscribe();
 	});
 </script>
 
@@ -69,25 +82,43 @@
 			oncancel={() => {
 				selectedDay = undefined;
 			}}
-			{...{ onsave: saveReward, date: selectedDay, ondelete: deleteSelectedReward }}
+			{...{
+				onsave: saveReward,
+				date: selectedDay,
+				ondelete: deleteSelectedReward
+			}}
 		/>
 	</Modal>
 {/if}
+
+{#if openProfileModal}
+	<ProfileModal onclose={() => (openProfileModal = false)} />
+{/if}
+
 <FlyingSection>
 	<header>
-		<button
-			onclick={() => {
-				animateMonthsSwipeLeftToRight = true;
-				year--;
-			}}><Icon>arrow_back_ios</Icon></button
+		<button class="profile" onclick={() => (openProfileModal = true)}>{$currentProfile ?? $_(t.PROFILE_DEFAULT)}</button
 		>
-		<h2>{year}</h2>
-		<button
-			onclick={() => {
-				animateMonthsSwipeLeftToRight = false;
-				year++;
-			}}><Icon>arrow_forward_ios</Icon></button
-		>
+		<div class="year-controls">
+			<button
+				onclick={() => {
+					animateMonthsSwipeLeftToRight = true;
+					year--;
+				}}
+			>
+				<Icon>arrow_back_ios</Icon>
+			</button>
+			<h2>{year}</h2>
+			<button
+				onclick={() => {
+					animateMonthsSwipeLeftToRight = false;
+					year++;
+				}}
+			>
+				<Icon>arrow_forward_ios</Icon>
+			</button>
+		</div>
+		<div class="filters"></div>
 	</header>
 	<div class="calendar">
 		{#key year}
@@ -112,19 +143,36 @@
 	:root {
 		overflow-y: scroll;
 	}
+
 	header {
+		display: flex;
+		justify-content: space-around;
+		width: 100%;
+		align-items: center;
+	}
+
+	.profile {
+		flex: 1;
+		height: 1em;
+	}
+	.filters {
+		flex: 1;
+	}
+
+	.year-controls {
+		flex: 2;
 		display: flex;
 		justify-content: center;
 		gap: 0.5em;
 	}
 
-	header > button {
+	.year-controls > button {
 		box-shadow: none !important;
 		border: none;
 		color: var(--text);
 	}
 
-	header > button:hover {
+	.year-controls > button:hover {
 		color: var(--headline);
 	}
 

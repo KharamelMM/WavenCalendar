@@ -3,15 +3,33 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
 	public: {
 		Tables: {
+			T_Profile: {
+				Row: {
+					created_at: string;
+					name: string;
+					user_id: string;
+				};
+				Insert: {
+					created_at?: string;
+					name: string;
+					user_id?: string;
+				};
+				Update: {
+					created_at?: string;
+					name?: string;
+					user_id?: string;
+				};
+				Relationships: [];
+			};
 			T_Reward: {
 				Row: {
 					amount: number | null;
 					created_at: string;
 					cycle_index: number;
 					description: string | null;
-					equipement: Database['public']['Enums']['E_Equipment'] | null;
-					id: string;
+					equipment: Database['public']['Enums']['E_Equipment'] | null;
 					item: Database['public']['Enums']['E_Item'] | null;
+					profile_name: string | null;
 					rarety: Database['public']['Enums']['E_Rarety'] | null;
 					type: Database['public']['Enums']['E_Reward'];
 					user_id: string;
@@ -21,9 +39,9 @@ export type Database = {
 					created_at?: string;
 					cycle_index?: number;
 					description?: string | null;
-					equipement?: Database['public']['Enums']['E_Equipment'] | null;
-					id?: string;
+					equipment?: Database['public']['Enums']['E_Equipment'] | null;
 					item?: Database['public']['Enums']['E_Item'] | null;
+					profile_name?: string | null;
 					rarety?: Database['public']['Enums']['E_Rarety'] | null;
 					type: Database['public']['Enums']['E_Reward'];
 					user_id?: string;
@@ -33,14 +51,22 @@ export type Database = {
 					created_at?: string;
 					cycle_index?: number;
 					description?: string | null;
-					equipement?: Database['public']['Enums']['E_Equipment'] | null;
-					id?: string;
+					equipment?: Database['public']['Enums']['E_Equipment'] | null;
 					item?: Database['public']['Enums']['E_Item'] | null;
+					profile_name?: string | null;
 					rarety?: Database['public']['Enums']['E_Rarety'] | null;
 					type?: Database['public']['Enums']['E_Reward'];
 					user_id?: string;
 				};
-				Relationships: [];
+				Relationships: [
+					{
+						foreignKeyName: 'T_Reward_profile_name_user_id_fkey';
+						columns: ['profile_name', 'user_id'];
+						isOneToOne: false;
+						referencedRelation: 'T_Profile';
+						referencedColumns: ['name', 'user_id'];
+					}
+				];
 			};
 		};
 		Views: {

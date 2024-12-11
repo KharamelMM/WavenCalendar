@@ -84,6 +84,12 @@ const locale: LocaleType = {
 		this application is available on `,
 	INFO_OPENSOURCE_TEXT_2: `Feel free
 		to check it out, report issues, or even contribute to improve the project!`,
-	INFO_END: "Thank you for being part of this adventure and helping us discover Waven's rewards!"
+	INFO_END: "Thank you for being part of this adventure and helping us discover Waven's rewards!",
+
+	PROFILE_DEFAULT: 'Default Profile',
+
+	PROFILE_INFO: 'You can manage multiple calendars with different profiles.',
+	PROFILE_CREATE: 'Create a new profile',
+	PROFILE_CREATE_PLACEHOLDER: 'Profile name'
 };
 export default locale;
