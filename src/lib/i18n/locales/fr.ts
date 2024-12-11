@@ -40,7 +40,7 @@ const locale: LocaleType = {
 	KAMAS: 'Kamas',
 	EQUIPMENT: 'Equipement',
 	CHEST: 'Super Coffre',
-	WAKFU: 'Wakfu',
+	WAKFU: 'Fragments de Wakfu',
 	RUNES: 'Runes',
 
 	COMMON: 'Commun',
