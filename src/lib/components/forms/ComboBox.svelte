@@ -6,9 +6,10 @@
 
 	export let values: T[] = [];
 	export let value: T;
+	export let required = false;
 </script>
 
-<Field {title}>
+<Field {...{ title, required }}>
 	<select bind:value>
 		{#each values as v}
 			<option value={v}>{$_(v)}</option>

@@ -56,19 +56,20 @@
 </script>
 
 <section>
-	<ComboBox title={$_(t.REWARD_LABEL_TYPE)} values={enumKeys(RewardType)} bind:value={rewardType} />
+	<ComboBox title={$_(t.REWARD_LABEL_TYPE)} values={enumKeys(RewardType)} bind:value={rewardType} required />
 	{#if rewardType === RewardType.EQUIPMENT}
-		<ComboBox title={$_(t.REWARD_LABEL_RARITY)} values={Object.keys(RaretyType)} bind:value={raretyType} />
-		<ComboBox title={$_(t.REWARD_LABEL_ITEM_TYPE)} values={Object.keys(ItemType)} bind:value={itemType} />
+		<ComboBox title={$_(t.REWARD_LABEL_RARITY)} values={Object.keys(RaretyType)} bind:value={raretyType} required />
+		<ComboBox title={$_(t.REWARD_LABEL_ITEM_TYPE)} values={Object.keys(ItemType)} bind:value={itemType} required />
 	{:else if rewardType === RewardType.CHEST || rewardType === RewardType.RUNES}
 		<ComboBox
 			title={$_(t.REWARD_LABEL_EQUIPMENT_TYPE)}
 			values={Object.keys(EquipmentType)}
 			bind:value={equipmentType}
+			required
 		/>
 	{/if}
 
-	<Field title={$_(t.REWARD_LABEL_AMOUNT)}>
+	<Field title={$_(t.REWARD_LABEL_AMOUNT)} required>
 		{#if rewardType === RewardType.GEMS}
 			<input type="number" min="100" max="250" step="50" bind:value={amount} />
 		{:else}

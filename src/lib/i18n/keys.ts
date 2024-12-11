@@ -68,7 +68,8 @@ enum Keys {
 	PROFILE_DEFAULT,
 	PROFILE_INFO,
 	PROFILE_CREATE,
-	PROFILE_CREATE_PLACEHOLDER
+	PROFILE_CREATE_PLACEHOLDER,
+	PROFILE_CREATE_LABEL
 }
 
 type LocaleKey = keyof (typeof Keys & typeof RewardType & typeof RaretyType & typeof ItemType & typeof EquipmentType);

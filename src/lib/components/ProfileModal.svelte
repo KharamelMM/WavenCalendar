@@ -56,6 +56,10 @@
 			</div>
 		{/each}
 	</div>
+
+	<div>
+		<b>{$_(t.PROFILE_CREATE_LABEL)}<span class="required">*</span> :</b>
+	</div>
 	<input type="text" bind:value={newProfileName} placeholder={$_(t.PROFILE_CREATE_PLACEHOLDER)} />
 	<button onclick={onCreateProfile}>{$_(t.PROFILE_CREATE)}</button>
 </Modal>
@@ -79,5 +83,9 @@
 
 	button {
 		font-size: 1em;
+	}
+
+	.required {
+		color: var(--alizarin);
 	}
 </style>

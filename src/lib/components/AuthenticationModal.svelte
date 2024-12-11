@@ -29,12 +29,15 @@
 	{:else}
 		<Info />
 
-		<div><b>{$_(t.AUTHENTICATION_LABEL_YOUR_EMAIL)} :</b></div>
+		<div>
+			<b>{$_(t.AUTHENTICATION_LABEL_YOUR_EMAIL)}<span class="required">*</span> :</b>
+		</div>
 		<input
 			type="email"
 			onkeydown={onTextFieldKeyDown}
 			placeholder={$_(t.AUTHENTICATION_PLACEHOLDER_EMAIL)}
 			bind:value={email}
+			autocomplete="email"
 		/>
 		<button class="primary" onclick={() => logIn(email)}>{$_(t.AUTHENTICATION_GET_LINK_BY_EMAIL)}</button>
 	{/if}
@@ -60,6 +63,10 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+	}
+
+	.required {
+		color: var(--alizarin);
 	}
 
 	@keyframes spin {

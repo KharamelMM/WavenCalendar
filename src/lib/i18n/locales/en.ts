@@ -90,6 +90,7 @@ const locale: LocaleType = {
 
 	PROFILE_INFO: 'You can manage multiple calendars with different profiles.',
 	PROFILE_CREATE: 'Create a new profile',
-	PROFILE_CREATE_PLACEHOLDER: 'Profile name'
+	PROFILE_CREATE_PLACEHOLDER: 'Profile name',
+	PROFILE_CREATE_LABEL: 'Profile name'
 };
 export default locale;
