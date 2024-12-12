@@ -17,6 +17,7 @@
 	import { _ } from 'svelte-i18n';
 	import ProfileModal from '$lib/components/ProfileModal.svelte';
 	import { get } from 'svelte/store';
+	import { momentStore } from '$lib/utils/moment.store';
 
 	let calendar: CalendarType = [];
 
@@ -72,11 +73,12 @@
 
 {#if selectedDay}
 	<Modal
-		title={selectedDay.toDateString()}
+		title={$momentStore(selectedDay).format('dddd D MMMM yyyy')}
 		onclose={() => {
 			selectedDay = undefined;
 		}}
 	>
+		<div>{$_(t.REWARDS_FORM_INFO)}</div>
 		<DayForm
 			reward={calendar[getSelectedOffset()]}
 			oncancel={() => {
@@ -126,7 +128,7 @@
 				<FlyingSection leftToRight={animateMonthsSwipeLeftToRight}>
 					<div class="months">
 						{#each MONTHS as month, i}
-							<Card i18nTitleKey={month}>
+							<Card title={$momentStore(new Date(0, i)).format('MMMM')}>
 								<Calendar {...{ month: i, year, onselectday: selectDay, calendar }} />
 							</Card>
 						{/each}

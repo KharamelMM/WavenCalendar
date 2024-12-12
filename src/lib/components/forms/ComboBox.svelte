@@ -21,6 +21,7 @@
 <style>
 	section {
 		display: flex;
+		flex-flow: row wrap;
 		gap: 0.5em;
 	}
 	button {

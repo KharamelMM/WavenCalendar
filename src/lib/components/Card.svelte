@@ -40,6 +40,7 @@
 	h3 {
 		text-align: center;
 		margin: 0;
+		text-transform: capitalize;
 	}
 	section {
 		background-color: var(--bg-secondary);

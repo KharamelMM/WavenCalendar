@@ -3,27 +3,6 @@ import { type LocaleType } from '../keys';
 const locale: LocaleType = {
 	HEADLINE: 'Waven Calendar',
 
-	JANUARY: 'January',
-	FEBRUARY: 'February',
-	MARCH: 'March',
-	APRIL: 'April',
-	MAY: 'May',
-	JUNE: 'June',
-	JULY: 'July',
-	AUGUST: 'August',
-	SEPTEMBER: 'September',
-	OCTOBER: 'October',
-	NOVEMBER: 'November',
-	DECEMBER: 'December',
-
-	SHORT_MONDAY: 'Mo',
-	SHORT_TUESDAY: 'Tu',
-	SHORT_WEDNESDAY: 'We',
-	SHORT_THURSDAY: 'Th',
-	SHORT_FRIDAY: 'Fr',
-	SHORT_SATURDAY: 'Sa',
-	SHORT_SUNDAY: 'Su',
-
 	CANCEL: 'Cancel',
 	SAVE: 'Save',
 
@@ -91,6 +70,8 @@ const locale: LocaleType = {
 	PROFILE_INFO: 'You can manage multiple calendars with different profiles.',
 	PROFILE_CREATE: 'Create a new profile',
 	PROFILE_CREATE_PLACEHOLDER: 'Profile name',
-	PROFILE_CREATE_LABEL: 'Profile name'
+	PROFILE_CREATE_LABEL: 'Profile name',
+
+	REWARDS_FORM_INFO: 'Fill in the rewards you receive each day to help us build the reward board.'
 };
 export default locale;

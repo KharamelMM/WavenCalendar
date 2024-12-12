@@ -2,8 +2,10 @@
 	import type { Calendar } from '$lib/types/Calendar';
 	import { CYCLE_START, DAYS } from '$lib/utils/const';
 	import { daysInMonth, getDayOfMonth, nbDistinctWeeksOfMonth, offsetInCycle } from '$lib/utils/date';
+	import { momentStore } from '$lib/utils/moment.store';
 	import CalendarDay from './CalendarDay.svelte';
 	import I18n from './I18n.svelte';
+	import moment from 'moment/min/moment-with-locales';
 
 	export let year: number;
 	export let month: number;
@@ -25,7 +27,11 @@
 	<thead>
 		<tr>
 			{#each { length: weekDays } as _, i}
-				<th><I18n key={DAYS[(i + weekOffset) % weekDays]} /></th>
+				<th>
+					{$momentStore()
+						.weekday(i % weekDays)
+						.format('dd')}
+				</th>
 			{/each}
 		</tr>
 	</thead>
@@ -47,3 +53,9 @@
 		{/each}
 	</tbody>
 </table>
+
+<style>
+	th {
+		text-transform: capitalize;
+	}
+</style>

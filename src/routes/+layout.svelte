@@ -42,8 +42,9 @@
 		}
 
 		if (getLocaleFromNavigator()?.startsWith('en')) {
-			setLang('en');
+			lang = 'en';
 		}
+		setLang(lang);
 	});
 </script>
 

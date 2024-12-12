@@ -6,27 +6,6 @@ import type { RewardType } from '$lib/types/RewardType';
 enum Keys {
 	HEADLINE,
 
-	JANUARY,
-	FEBRUARY,
-	MARCH,
-	APRIL,
-	MAY,
-	JUNE,
-	JULY,
-	AUGUST,
-	SEPTEMBER,
-	OCTOBER,
-	NOVEMBER,
-	DECEMBER,
-
-	SHORT_MONDAY,
-	SHORT_TUESDAY,
-	SHORT_WEDNESDAY,
-	SHORT_THURSDAY,
-	SHORT_FRIDAY,
-	SHORT_SATURDAY,
-	SHORT_SUNDAY,
-
 	CANCEL,
 	SAVE,
 
@@ -69,7 +48,9 @@ enum Keys {
 	PROFILE_INFO,
 	PROFILE_CREATE,
 	PROFILE_CREATE_PLACEHOLDER,
-	PROFILE_CREATE_LABEL
+	PROFILE_CREATE_LABEL,
+
+	REWARDS_FORM_INFO
 }
 
 type LocaleKey = keyof (typeof Keys & typeof RewardType & typeof RaretyType & typeof ItemType & typeof EquipmentType);
