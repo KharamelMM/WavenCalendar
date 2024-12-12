@@ -1,4 +1,5 @@
 <script lang="ts" generics="T extends string">
+	import I18n from '../I18n.svelte';
 	import Field from './Field.svelte';
 	import { _ } from 'svelte-i18n';
 
@@ -10,9 +11,24 @@
 </script>
 
 <Field {...{ title, required }}>
-	<select bind:value>
+	<section>
 		{#each values as v}
-			<option value={v}>{$_(v)}</option>
+			<button class={v.toLowerCase()} class:active={value === v} onclick={() => (value = v)}><I18n key={v} /></button>
 		{/each}
-	</select>
+	</section>
 </Field>
+
+<style>
+	section {
+		display: flex;
+		gap: 0.5em;
+	}
+	button {
+		border-bottom: 0.2em solid var(--color);
+		font-size: 1em;
+	}
+	button.active {
+		background-color: var(--headline);
+		color: var(--bg);
+	}
+</style>

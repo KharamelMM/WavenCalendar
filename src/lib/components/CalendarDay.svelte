@@ -51,8 +51,6 @@
 
 <style>
 	button {
-		--color: transparent;
-
 		width: 100%;
 		border-style: solid;
 		border-color: var(--color);
@@ -71,41 +69,5 @@
 		background-color: var(--color);
 		color: var(--bg);
 		transform: scale(1.2);
-	}
-
-	.gems {
-		--color: var(--amethyst);
-	}
-
-	.kamas {
-		--color: var(--sun-flower);
-	}
-
-	.infinite {
-		--color: var(--carrot);
-	}
-
-	.krosmic {
-		--color: var(--wisteria);
-	}
-
-	.rare {
-		--color: var(--peter-river);
-	}
-
-	.common {
-		--color: var(--asbestos);
-	}
-
-	.wakfu {
-		--color: var(--belize-hole);
-	}
-
-	.chest {
-		--color: var(--pomegranate);
-	}
-
-	.runes {
-		--color: var(--nephritis);
 	}
 </style>

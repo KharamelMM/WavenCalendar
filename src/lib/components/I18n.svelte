@@ -2,7 +2,7 @@
 	import { t } from '$lib/i18n';
 	import { _ } from 'svelte-i18n';
 
-	export let key: keyof typeof t;
+	export let key: string;
 </script>
 
 {$_(key)}
