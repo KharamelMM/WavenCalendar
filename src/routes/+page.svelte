@@ -18,6 +18,7 @@
 	import ProfileModal from '$lib/components/ProfileModal.svelte';
 	import { get } from 'svelte/store';
 	import { momentStore } from '$lib/utils/moment.store';
+	import Filters from '$lib/components/Filters.svelte';
 
 	let calendar: CalendarType = [];
 
@@ -25,6 +26,7 @@
 	let selectedDay: Date | undefined;
 	let openProfileModal = false;
 	let animateMonthsSwipeLeftToRight: boolean = true;
+	let filters: { [key in string]: boolean } = {};
 
 	function selectDay(date: Date) {
 		selectedDay = date;
@@ -99,8 +101,9 @@
 
 <FlyingSection>
 	<header>
-		<button class="profile" onclick={() => (openProfileModal = true)}>{$currentProfile ?? $_(t.PROFILE_DEFAULT)}</button
-		>
+		<button class="profile" onclick={() => (openProfileModal = true)}>
+			{$currentProfile ?? $_(t.PROFILE_DEFAULT)}
+		</button>
 		<div class="year-controls">
 			<button
 				onclick={() => {
@@ -120,7 +123,9 @@
 				<Icon>arrow_forward_ios</Icon>
 			</button>
 		</div>
-		<div class="filters"></div>
+		<div>
+			<Filters bind:filters />
+		</div>
 	</header>
 	<div class="calendar">
 		{#key year}
@@ -129,7 +134,7 @@
 					<div class="months">
 						{#each MONTHS as month, i}
 							<Card title={$momentStore(new Date(0, i)).format('MMMM')}>
-								<Calendar {...{ month: i, year, onselectday: selectDay, calendar }} />
+								<Calendar {...{ month: i, year, onselectday: selectDay, calendar, filters }} />
 							</Card>
 						{/each}
 					</div>
@@ -149,20 +154,20 @@
 	header {
 		display: flex;
 		justify-content: space-around;
-		width: 100%;
-		align-items: center;
+		align-items: end;
+		padding: 0.5em 2em 1em 2em;
 	}
 
 	.profile {
-		flex: 1;
 		height: 1em;
 	}
-	.filters {
-		flex: 1;
+	header > *:last-child,
+	header > *:first-child {
+		flex: 2;
 	}
 
 	.year-controls {
-		flex: 2;
+		flex: 1;
 		display: flex;
 		justify-content: center;
 		gap: 0.5em;

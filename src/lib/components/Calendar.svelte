@@ -4,9 +4,8 @@
 	import { daysInMonth, getDayOfMonth, nbDistinctWeeksOfMonth, offsetInCycle } from '$lib/utils/date';
 	import { momentStore } from '$lib/utils/moment.store';
 	import CalendarDay from './CalendarDay.svelte';
-	import I18n from './I18n.svelte';
-	import moment from 'moment/min/moment-with-locales';
 
+	export let filters: { [key in string]: boolean } = {};
 	export let year: number;
 	export let month: number;
 
@@ -14,7 +13,6 @@
 
 	export let calendar: Calendar;
 
-	export let weekOffset: number = 1;
 	const weekDays = DAYS.length;
 
 	function getReward(date: Date) {
@@ -36,16 +34,16 @@
 		</tr>
 	</thead>
 	<tbody>
-		{#each { length: nbDistinctWeeksOfMonth(month, year, weekOffset) } as _, row}
+		{#each { length: nbDistinctWeeksOfMonth(month, year) } as _, row}
 			{@const maxDayOfMonth = daysInMonth(month, year)}
 			<tr>
 				{#each DAYS as _, i}
-					{@const dayOfMonth = getDayOfMonth(month, year, i, row, weekOffset)}
+					{@const dayOfMonth = getDayOfMonth(month, year, i, row)}
 					<td>
 						{#if dayOfMonth > 0 && dayOfMonth <= maxDayOfMonth}
 							{@const currentDate = new Date(year, month, dayOfMonth)}
 							{@const reward = getReward(currentDate)}
-							<CalendarDay {currentDate} {dayOfMonth} {reward} onclick={() => onselectday(currentDate)} />
+							<CalendarDay {...{ currentDate, dayOfMonth, reward, filters, onclick: () => onselectday(currentDate) }} />
 						{/if}
 					</td>
 				{/each}

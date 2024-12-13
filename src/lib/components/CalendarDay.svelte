@@ -4,6 +4,7 @@
 	import Tooltip from './Tooltip.svelte';
 	import { _ } from 'svelte-i18n';
 
+	export let filters: { [key in string]: boolean } = {};
 	export let currentDate: Date;
 	export let dayOfMonth: number;
 	export let reward: Reward | undefined = undefined;
@@ -14,9 +15,13 @@
 	function getClass() {
 		if (reward) {
 			if (reward.type === RewardType.EQUIPMENT) {
-				return reward.rarety.toLowerCase();
+				if (filters[reward.rarety]) {
+					return reward.rarety.toLowerCase();
+				}
 			} else {
-				return reward.type.toLowerCase();
+				if (filters[reward.type]) {
+					return reward.type.toLowerCase();
+				}
 			}
 		}
 	}
