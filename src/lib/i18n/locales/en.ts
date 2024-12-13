@@ -65,6 +65,7 @@ const locale: LocaleType = {
 		to check it out, report issues, or even contribute to improve the project!`,
 	INFO_END: "Thank you for being part of this adventure and helping us discover Waven's rewards!",
 
+	PROFILE: 'Profile',
 	PROFILE_DEFAULT: 'Default Profile',
 
 	PROFILE_INFO: 'You can manage multiple calendars with different profiles.',

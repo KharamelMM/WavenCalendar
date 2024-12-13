@@ -82,9 +82,12 @@
 			<button on:click={() => (window.location.href = 'https://github.com/KharamelMM/WavenCalendar')}>Github</button>
 		</div>
 	</header>
-	<section>
-		<slot />
-	</section>
+
+	{#if session}
+		<section>
+			<slot />
+		</section>
+	{/if}
 {/if}
 
 <style>

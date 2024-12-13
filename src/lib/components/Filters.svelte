@@ -2,29 +2,49 @@
 	import { _ } from 'svelte-i18n';
 	import { RaretyType } from '$lib/types/RaretyType';
 	import { RewardType } from '$lib/types/RewardType';
+	import { localStorageStore } from '$lib/utils/localstorage.store';
+	import { onMount } from 'svelte';
+	import { get } from 'svelte/store';
 
-	export let filters: { [key in string]: boolean } = {};
-
-	for (const rarety in RaretyType) {
-		filters[rarety] = true;
+	function swapFilter(filter: string) {
+		localStorageStore.update((state) => {
+			const filters = state.filters;
+			if (filters) {
+				filters[filter] = !filters[filter];
+			}
+			return { ...state, filters };
+		});
 	}
 
-	for (const type in RewardType) {
-		if (type !== RewardType.EQUIPMENT) {
-			filters[type] = true;
+	onMount(() => {
+		const savedFilters = get(localStorageStore).filters;
+		if (!savedFilters) {
+			let filters = {} as { [key in string]: boolean };
+			for (const rarety in RaretyType) {
+				filters[rarety] = true;
+			}
+			for (const type in RewardType) {
+				if (type !== RewardType.EQUIPMENT) {
+					filters[type] = true;
+				}
+			}
+
+			localStorageStore.update((state) => {
+				return { ...state, filters };
+			});
 		}
-	}
+	});
 </script>
 
 <section>
-	{#each Object.keys(filters) as filter}
+	{#each Object.keys($localStorageStore.filters || {}) as filter}
 		<div class="filter">
 			<button
-				onclick={() => (filters[filter] = !filters[filter])}
+				onclick={() => swapFilter(filter)}
 				class={`material-icon ${filter.toLowerCase()}`}
-				class:checked={filters[filter]}
+				class:checked={$localStorageStore.filters![filter]}
 			>
-				{#if filters[filter]}
+				{#if $localStorageStore.filters![filter]}
 					check
 				{/if}
 			</button>

@@ -67,6 +67,7 @@ const locale: LocaleType = {
 		à le consulter, à signaler des problèmes ou même à y contribuer pour améliorer le projet !`,
 	INFO_END: 'Merci de faire partie de cette aventure et de nous aider à découvrir les récompenses de Waven !',
 
+	PROFILE: 'Profil',
 	PROFILE_DEFAULT: 'Profil par défaut',
 
 	PROFILE_INFO: 'Vous pouvez gérer plusieurs calendriers en même temps avec différents profils.',

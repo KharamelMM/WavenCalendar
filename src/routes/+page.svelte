@@ -26,7 +26,6 @@
 	let selectedDay: Date | undefined;
 	let openProfileModal = false;
 	let animateMonthsSwipeLeftToRight: boolean = true;
-	let filters: { [key in string]: boolean } = {};
 
 	function selectDay(date: Date) {
 		selectedDay = date;
@@ -102,7 +101,7 @@
 <FlyingSection>
 	<header>
 		<button class="profile" onclick={() => (openProfileModal = true)}>
-			{$currentProfile ?? $_(t.PROFILE_DEFAULT)}
+			{$currentProfile ? `${$_(t.PROFILE)} : ${$currentProfile}` : $_(t.PROFILE_DEFAULT)}
 		</button>
 		<div class="year-controls">
 			<button
@@ -124,7 +123,7 @@
 			</button>
 		</div>
 		<div>
-			<Filters bind:filters />
+			<Filters />
 		</div>
 	</header>
 	<div class="calendar">
@@ -134,7 +133,7 @@
 					<div class="months">
 						{#each MONTHS as month, i}
 							<Card title={$momentStore(new Date(0, i)).format('MMMM')}>
-								<Calendar {...{ month: i, year, onselectday: selectDay, calendar, filters }} />
+								<Calendar {...{ month: i, year, onselectday: selectDay, calendar }} />
 							</Card>
 						{/each}
 					</div>
@@ -160,6 +159,8 @@
 
 	.profile {
 		height: 1em;
+		text-align: left;
+		box-shadow: none !important;
 	}
 	header > *:last-child,
 	header > *:first-child {

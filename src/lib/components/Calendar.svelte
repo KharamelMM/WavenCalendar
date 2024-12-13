@@ -5,7 +5,6 @@
 	import { momentStore } from '$lib/utils/moment.store';
 	import CalendarDay from './CalendarDay.svelte';
 
-	export let filters: { [key in string]: boolean } = {};
 	export let year: number;
 	export let month: number;
 
@@ -43,7 +42,7 @@
 						{#if dayOfMonth > 0 && dayOfMonth <= maxDayOfMonth}
 							{@const currentDate = new Date(year, month, dayOfMonth)}
 							{@const reward = getReward(currentDate)}
-							<CalendarDay {...{ currentDate, dayOfMonth, reward, filters, onclick: () => onselectday(currentDate) }} />
+							<CalendarDay {...{ currentDate, dayOfMonth, reward, onclick: () => onselectday(currentDate) }} />
 						{/if}
 					</td>
 				{/each}

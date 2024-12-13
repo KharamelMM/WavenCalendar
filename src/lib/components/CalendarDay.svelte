@@ -1,25 +1,34 @@
 <script lang="ts">
 	import type { Reward } from '$lib/types/Reward';
 	import { RewardType } from '$lib/types/RewardType';
+	import { localStorageStore } from '$lib/utils/localstorage.store';
 	import Tooltip from './Tooltip.svelte';
 	import { _ } from 'svelte-i18n';
+	import { onDestroy } from 'svelte';
+	import { get } from 'svelte/store';
 
-	export let filters: { [key in string]: boolean } = {};
 	export let currentDate: Date;
 	export let dayOfMonth: number;
 	export let reward: Reward | undefined = undefined;
 	export let onclick: () => void;
 
 	const today = new Date();
+	let btnClass: string | undefined = '';
+	const unsubscribe = localStorageStore.subscribe((state) => {
+		btnClass = getClass(state.filters);
+	});
+	$: if (reward) {
+		btnClass = getClass(get(localStorageStore).filters);
+	}
 
-	function getClass() {
+	function getClass(filters?: { [key in string]: boolean }) {
 		if (reward) {
 			if (reward.type === RewardType.EQUIPMENT) {
-				if (filters[reward.rarety]) {
+				if (!filters || filters[reward.rarety]) {
 					return reward.rarety.toLowerCase();
 				}
 			} else {
-				if (filters[reward.type]) {
+				if (!filters || filters[reward.type]) {
 					return reward.type.toLowerCase();
 				}
 			}
@@ -41,12 +50,16 @@
 			return tooltip;
 		}
 	}
+
+	onDestroy(() => {
+		unsubscribe();
+	});
 </script>
 
 <Tooltip title={getTooltip()}>
 	<button
 		class:today={currentDate.toDateString() === today.toDateString()}
-		class={getClass()}
+		class={btnClass}
 		{onclick}
 		disabled={currentDate > today}
 	>

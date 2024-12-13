@@ -12,7 +12,6 @@
 <style>
 	.tooltip {
 		position: relative;
-		display: inline-block;
 	}
 
 	.text {
