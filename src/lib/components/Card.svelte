@@ -40,13 +40,14 @@
 		width: auto;
 	}
 	h3 {
+		font-size: 1em;
 		text-align: center;
 		margin: 0;
 		text-transform: capitalize;
 	}
 	section {
 		background-color: var(--bg-secondary);
-		padding: 0.75em 1em;
+		padding: 0.5em 0.75em;
 
 		width: fit-content;
 		border-radius: 0.5em;

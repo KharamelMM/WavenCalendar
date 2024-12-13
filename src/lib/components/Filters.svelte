@@ -65,7 +65,7 @@
 		align-items: center;
 		gap: 0.25em;
 
-		font-size: 1em;
+		font-size: 0.8em;
 	}
 
 	button {

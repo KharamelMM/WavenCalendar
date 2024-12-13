@@ -55,4 +55,7 @@
 	th {
 		text-transform: capitalize;
 	}
+	table {
+		font-size: 0.8em;
+	}
 </style>
