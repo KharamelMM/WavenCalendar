@@ -1,19 +1,27 @@
 :root {
 	--color: transparent;
 
-	--turquoise: #1abc9c;
+	--light-greenish-blue: #55efc4;
 	--emerald: #2ecc71;
-	--peter-river: #3498db;
-	--amethyst: #9b59b6;
+
+	--green-darner-tail: #74b9ff;
+	--belize-hole: #2980b9;
+
+	--shy-moment: #a29bfe;
+	--wisteria: #8e44ad;
+
 	--wet-asphalt: #34495e;
+	--midnight-blue: #2c3e50;
+
 	--green-sea: #16a085;
 	--nephritis: #27ae60;
-	--belize-hole: #2980b9;
-	--wisteria: #8e44ad;
-	--midnight-blue: #2c3e50;
+
+	--bright-yarrow: #fdcb6e;
 	--sun-flower: #f1c40f;
-	--carrot: #e67e22;
+
+	--pink-glamour: #ff7675;
 	--alizarin: #e74c3c;
+
 	--clouds: #ecf0f1;
 	--concrete: #95a5a6;
 	--orange: #f39c12;
@@ -24,44 +32,44 @@
 }
 
 .gems {
-	--color: var(--amethyst);
+	--color: var(--wisteria) !important;
 }
 
 .kamas,
 .spells {
-	--color: var(--sun-flower);
+	--color: var(--sun-flower) !important;
 }
 
 .infinite {
-	--color: var(--carrot);
+	--color: var(--bright-yarrow) !important;
 }
 
 .krosmic,
 .equipments {
-	--color: var(--wisteria);
+	--color: var(--shy-moment) !important;
 }
 
 .rare,
 .companion,
 .companions {
-	--color: var(--peter-river);
+	--color: var(--green-darner-tail) !important;
 }
 
 .common,
 .equipment,
 .ring,
 .armband {
-	--color: var(--asbestos);
+	--color: var(--asbestos) !important;
 }
 
 .wakfu {
-	--color: var(--belize-hole);
+	--color: var(--belize-hole) !important;
 }
 
 .chest {
-	--color: var(--pomegranate);
+	--color: var(--pink-glamour) !important;
 }
 
 .runes {
-	--color: var(--nephritis);
+	--color: var(--nephritis) !important;
 }
