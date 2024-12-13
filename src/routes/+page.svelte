@@ -132,7 +132,10 @@
 				<FlyingSection leftToRight={animateMonthsSwipeLeftToRight}>
 					<div class="months">
 						{#each MONTHS as month, i}
-							<Card title={$momentStore(new Date(0, i)).format('MMMM')}>
+							<Card
+								title={$momentStore(new Date(0, i)).format('MMMM')}
+								outline={i === new Date().getMonth() && year === new Date().getFullYear()}
+							>
 								<Calendar {...{ month: i, year, onselectday: selectDay, calendar }} />
 							</Card>
 						{/each}

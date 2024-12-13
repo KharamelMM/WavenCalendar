@@ -7,9 +7,11 @@
 	export let title: string | undefined = undefined;
 	export let i18nTitleKey: keyof typeof t | undefined = undefined;
 	export let onclose: (() => void) | undefined = undefined;
+
+	export let outline = false;
 </script>
 
-<section transition:scale={{ easing: backOut, duration: 200 }}>
+<section transition:scale={{ easing: backOut, duration: 200 }} class:outline>
 	<header>
 		{#if onclose}
 			<button onclick={onclose} class="material-icon">close</button>
@@ -53,5 +55,9 @@
 
 	.body {
 		padding: 0 0.5em;
+	}
+
+	.outline {
+		outline: 0.2em solid var(--text);
 	}
 </style>
