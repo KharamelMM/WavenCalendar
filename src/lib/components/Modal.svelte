@@ -7,10 +7,27 @@
 	export let title: string | undefined = undefined;
 	export let i18nTitleKey: keyof typeof t | undefined = undefined;
 	export let onclose: (() => void) | undefined = undefined;
+
+	let mouseDown = false;
+
+	function fnStopPropagation(e: MouseEvent) {
+		e.stopPropagation();
+	}
 </script>
 
-<section transition:fade={{ duration: 200 }} onclick={onclose}>
-	<div onclick={(e) => e.stopPropagation()}>
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<section
+	transition:fade={{ duration: 200 }}
+	onmousedown={() => (mouseDown = true)}
+	onmouseup={() => {
+		if (mouseDown) {
+			mouseDown = false;
+			onclose?.();
+		}
+	}}
+>
+	<div onmousedown={fnStopPropagation} onmouseup={fnStopPropagation}>
 		<Card {...{ title, i18nTitleKey, onclose }}><slot /></Card>
 	</div>
 </section>
