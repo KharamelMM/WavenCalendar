@@ -52,7 +52,14 @@
 					{profile}
 				</button>
 
-				<button class="material-icon delete-profile" onclick={() => onDeleteProfile(profile)}>delete</button>
+				<button
+					class="material-icon delete-profile"
+					onclick={() => {
+						if (confirm($_(t.PROFILE_DELETE_CONFIRM))) {
+							onDeleteProfile(profile);
+						}
+					}}>delete</button
+				>
 			</div>
 		{/each}
 	</div>

@@ -14,6 +14,7 @@ const locale: LocaleType = {
 	REWARD_LABEL_ITEM_TYPE: 'Item Type',
 	REWARD_LABEL_AMOUNT: 'Amount',
 	REWARD_LABEL_EQUIPMENT_MORE: 'More',
+	REWARD_DELETE_CONFIRM: 'Are you sure you want to delete this reward? This action is irreversible.',
 
 	GEMS: 'Gems',
 	KAMAS: 'Kamas',
@@ -72,6 +73,8 @@ const locale: LocaleType = {
 	PROFILE_CREATE: 'Create a new profile',
 	PROFILE_CREATE_PLACEHOLDER: 'Profile name',
 	PROFILE_CREATE_LABEL: 'Profile name',
+	PROFILE_DELETE_CONFIRM:
+		'Are you sure you want to delete this profile? This action is irreversible. The calendar and rewards associated with this profile will be permanently deleted.',
 
 	REWARDS_FORM_INFO: 'Fill in the rewards you receive each day to help us build the reward board.'
 };

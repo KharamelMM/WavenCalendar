@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { t } from '$lib/i18n';
+	import { stopPropagation } from 'svelte/legacy';
 	import Card from './Card.svelte';
 	import { fade } from 'svelte/transition';
 
@@ -8,8 +9,10 @@
 	export let onclose: (() => void) | undefined = undefined;
 </script>
 
-<section transition:fade={{ duration: 200 }}>
-	<Card {...{ title, i18nTitleKey, onclose }}><slot /></Card>
+<section transition:fade={{ duration: 200 }} onclick={onclose}>
+	<div onclick={(e) => e.stopPropagation()}>
+		<Card {...{ title, i18nTitleKey, onclose }}><slot /></Card>
+	</div>
 </section>
 
 <style>

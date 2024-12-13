@@ -15,13 +15,13 @@
 	const today = new Date();
 	let btnClass: string | undefined = '';
 	const unsubscribe = localStorageStore.subscribe((state) => {
-		btnClass = getClass(state.filters);
+		btnClass = getClass(reward, state.filters);
 	});
-	$: if (reward) {
-		btnClass = getClass(get(localStorageStore).filters);
+	$: {
+		btnClass = getClass(reward, get(localStorageStore).filters);
 	}
 
-	function getClass(filters?: { [key in string]: boolean }) {
+	function getClass(reward?: Reward, filters?: { [key in string]: boolean }) {
 		if (reward) {
 			if (reward.type === RewardType.EQUIPMENT) {
 				if (!filters || filters[reward.rarety]) {

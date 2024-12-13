@@ -87,7 +87,14 @@
 		<button class="secondary" onclick={() => oncancel()}>{$_(t.CANCEL)}</button>
 		<button class="primary" onclick={save}>{$_(t.SAVE)}</button>
 		{#if ondelete}
-			<button class="delete material-icon" onclick={ondelete}>delete</button>
+			<button
+				class="delete material-icon"
+				onclick={() => {
+					if (confirm($_(t.REWARD_DELETE_CONFIRM))) {
+						ondelete();
+					}
+				}}>delete</button
+			>
 		{/if}
 	</div>
 </section>

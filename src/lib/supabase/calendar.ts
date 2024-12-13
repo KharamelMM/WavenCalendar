@@ -18,11 +18,21 @@ export async function setReward(profile: string | undefined, reward: TablesInser
 }
 
 export async function deleteReward(profile: string | undefined, cycleOffset: number) {
-	const response = await supabase
-		.from(TABLE_NAME)
-		.delete()
-		.match({ profile_name: profile, cycle_index: cycleOffset })
-		.select();
+	let response: PostgrestSingleResponse<Tables<typeof TABLE_NAME>[]>;
+	if (profile) {
+		response = await supabase
+			.from(TABLE_NAME)
+			.delete()
+			.match({ profile_name: profile, cycle_index: cycleOffset })
+			.select();
+	} else {
+		response = await supabase
+			.from(TABLE_NAME)
+			.delete()
+			.match({ cycle_index: cycleOffset })
+			.is('profile_name', null)
+			.select();
+	}
 	if (response.error) {
 		throw response.error;
 	}

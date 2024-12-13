@@ -14,6 +14,7 @@ const locale: LocaleType = {
 	REWARD_LABEL_ITEM_TYPE: "Type d'objet",
 	REWARD_LABEL_AMOUNT: 'Quantité',
 	REWARD_LABEL_EQUIPMENT_MORE: 'Plus de détails',
+	REWARD_DELETE_CONFIRM: 'Êtes-vous sûr de vouloir supprimer cette récompense ? Cette action est irréversible.',
 
 	GEMS: 'Gemmes',
 	KAMAS: 'Kamas',
@@ -74,6 +75,8 @@ const locale: LocaleType = {
 	PROFILE_CREATE: 'Créer un nouveau profil',
 	PROFILE_CREATE_PLACEHOLDER: 'Nom du profil',
 	PROFILE_CREATE_LABEL: 'Nom du profil',
+	PROFILE_DELETE_CONFIRM:
+		"Êtes-vous sûr de vouloir supprimer ce profil ? Cette action est irréversible, l'ensemble du calendrier et de ses récompenses associées seront également supprimées.",
 
 	REWARDS_FORM_INFO:
 		'Remplissez les récompenses que vous recevez chaque jour pour nous aider à construire le tableau des récompenses.'
