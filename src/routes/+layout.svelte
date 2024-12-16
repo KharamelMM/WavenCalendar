@@ -60,14 +60,14 @@
 		<div class="brand">
 			<h1>{$_(t.HEADLINE)}</h1>
 		</div>
-		{#if $page.url.pathname !== '/stats'}
-			<button class="with-icon" onclick={() => goto('/stats')}>
+		{#if $page.url.pathname !== '/WavenCalendar/stats'}
+			<button class="with-icon" onclick={() => goto('/WavenCalendar/stats')}>
 				<div class="material-icon">search</div>
 				<div class="text">{$_(t.NAVIGATION_STATS)}</div>
 			</button>
 		{/if}
-		{#if $page.url.pathname !== '/'}
-			<button class="with-icon" onclick={() => goto('/')}>
+		{#if $page.url.pathname !== '/WavenCalendar/'}
+			<button class="with-icon" onclick={() => goto('/WavenCalendar')}>
 				<div class="material-icon">volunteer_activism</div>
 				<div class="text">{$_(t.NAVIGATION_HOME)}</div>
 			</button>
