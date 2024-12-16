@@ -82,6 +82,8 @@ const locale: LocaleType = {
 	STATS_LABEL_OBJECTIVE: 'Objective',
 
 	NAVIGATION_HOME: 'Contribute to the project',
-	NAVIGATION_STATS: "View the project's statistics"
+	NAVIGATION_STATS: "View the project's statistics",
+
+	DISCONNECT: 'Disconnect'
 };
 export default locale;

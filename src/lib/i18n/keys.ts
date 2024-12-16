@@ -59,7 +59,9 @@ enum Keys {
 	STATS_LABEL_OBJECTIVE,
 
 	NAVIGATION_HOME,
-	NAVIGATION_STATS
+	NAVIGATION_STATS,
+
+	DISCONNECT
 }
 
 type LocaleKey = keyof (typeof Keys & typeof RewardType & typeof RaretyType & typeof ItemType & typeof EquipmentType);

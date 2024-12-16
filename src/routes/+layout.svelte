@@ -8,6 +8,7 @@
 	import { _, locale, isLoading, getLocaleFromNavigator } from 'svelte-i18n';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import LogOut from '$lib/components/LogOut.svelte';
 
 	const BUBBLE_LANG_ID = 'bubble_lang';
 	let session: AuthSession | null;
@@ -102,6 +103,8 @@
 			<slot />
 		</section>
 	{/if}
+
+	<LogOut />
 {/if}
 
 <style>
@@ -185,6 +188,11 @@
 		border-radius: 2em;
 		padding: 0 1em;
 		gap: 0.5em;
+	}
+
+	button.with-icon:hover {
+		background-color: var(--headline);
+		color: var(--bg);
 	}
 
 	@media (max-width: 750px) {

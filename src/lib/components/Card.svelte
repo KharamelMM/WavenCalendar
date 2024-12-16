@@ -29,11 +29,6 @@
 </section>
 
 <style>
-	section.modal {
-		max-width: 100vw;
-		max-height: 80vh;
-		overflow: auto;
-	}
 	header {
 		display: flex;
 		align-items: center;
@@ -66,5 +61,13 @@
 
 	.outline {
 		outline: 0.2em solid var(--text);
+	}
+
+	@media (max-width: 850px) {
+		section.modal {
+			width: 90vw;
+			height: 80vh;
+			overflow: auto;
+		}
 	}
 </style>

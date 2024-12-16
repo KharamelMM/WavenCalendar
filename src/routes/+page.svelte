@@ -9,7 +9,6 @@
 	import type { Calendar as CalendarType } from '$lib/types/Calendar';
 	import { offsetInCycle } from '$lib/utils/date';
 	import Modal from '$lib/components/Modal.svelte';
-	import LogOut from '$lib/components/LogOut.svelte';
 	import { deleteReward, getCalendar, setReward } from '$lib/supabase/calendar';
 	import { onDestroy, onMount } from 'svelte';
 	import { currentProfile } from '$lib/utils/profile.store';
@@ -147,8 +146,6 @@
 		{/key}
 	</div>
 </FlyingSection>
-
-<LogOut />
 
 <style>
 	:root {
