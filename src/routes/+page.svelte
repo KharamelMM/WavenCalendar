@@ -158,20 +158,15 @@
 	header {
 		display: flex;
 		justify-content: space-around;
-		align-items: end;
+		flex-direction: column;
+		align-items: center;
 		padding: 0.5em 2em 1em 2em;
 	}
-
 	.profile {
 		height: 1em;
 		text-align: left;
 		box-shadow: none !important;
 	}
-	header > *:last-child,
-	header > *:first-child {
-		flex: 2;
-	}
-
 	.year-controls {
 		flex: 1;
 		display: flex;

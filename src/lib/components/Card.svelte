@@ -9,9 +9,10 @@
 	export let onclose: (() => void) | undefined = undefined;
 
 	export let outline = false;
+	export let modal = false;
 </script>
 
-<section transition:scale={{ easing: backOut, duration: 200 }} class:outline>
+<section transition:scale={{ easing: backOut, duration: 200 }} class:outline class:modal>
 	<header>
 		{#if onclose}
 			<button onclick={onclose} class="material-icon">close</button>
@@ -28,6 +29,11 @@
 </section>
 
 <style>
+	section.modal {
+		max-width: 100vw;
+		max-height: 80vh;
+		overflow: auto;
+	}
 	header {
 		display: flex;
 		align-items: center;

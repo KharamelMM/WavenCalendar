@@ -40,8 +40,8 @@
 						},
 						{
 							label: get(_)(t.STATS_LABEL_OBJECTIVE),
-							backgroundColor: '#770000',
-							borderColor: '#770000',
+							backgroundColor: '#CC7777',
+							borderColor: '#CC7777',
 							data: values.map((_) => REWARD_COUNT_OBJECTIVE)
 						}
 					]

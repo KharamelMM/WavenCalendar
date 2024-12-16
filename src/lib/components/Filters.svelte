@@ -55,9 +55,10 @@
 
 <style>
 	section {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(7.5em, 1fr));
-		gap: 0.1em;
+		display: flex;
+		gap: 1em;
+		flex-wrap: wrap;
+		justify-content: center;
 	}
 
 	.filter {

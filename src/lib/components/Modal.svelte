@@ -28,7 +28,7 @@
 	}}
 >
 	<div onmousedown={fnStopPropagation} onmouseup={fnStopPropagation}>
-		<Card {...{ title, i18nTitleKey, onclose }}><slot /></Card>
+		<Card {...{ title, i18nTitleKey, onclose, modal: true }}><slot /></Card>
 	</div>
 </section>
 
