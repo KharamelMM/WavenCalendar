@@ -6,6 +6,8 @@
 	import type { AuthSession } from '@supabase/supabase-js';
 	import { onMount } from 'svelte';
 	import { _, locale, isLoading, getLocaleFromNavigator } from 'svelte-i18n';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	const BUBBLE_LANG_ID = 'bubble_lang';
 	let session: AuthSession | null;
@@ -57,29 +59,41 @@
 		<div class="brand">
 			<h1>{$_(t.HEADLINE)}</h1>
 		</div>
+		{#if $page.url.pathname !== '/stats'}
+			<button class="with-icon" onclick={() => goto('/stats')}>
+				<div class="material-icon">search</div>
+				<div class="text">{$_(t.NAVIGATION_STATS)}</div>
+			</button>
+		{/if}
+		{#if $page.url.pathname !== '/'}
+			<button class="with-icon" onclick={() => goto('/')}>
+				<div class="material-icon">volunteer_activism</div>
+				<div class="text">{$_(t.NAVIGATION_HOME)}</div>
+			</button>
+		{/if}
 		<div class="controls">
 			<div class="langs">
-				<button on:click={() => setLang('fr')} disabled={lang === 'fr'}>
+				<button onclick={() => setLang('fr')} disabled={lang === 'fr'}>
 					<div class="lang">FR</div>
 					{#if lang === 'fr'}
 						<bubble in:receive={{ key: BUBBLE_LANG_ID }} out:send={{ key: BUBBLE_LANG_ID }}></bubble>
 					{/if}
 				</button>
-				<button on:click={() => setLang('en')} disabled={lang === 'en'}>
+				<button onclick={() => setLang('en')} disabled={lang === 'en'}>
 					<div class="lang">EN</div>
 					{#if lang === 'en'}
 						<bubble in:receive={{ key: BUBBLE_LANG_ID }} out:send={{ key: BUBBLE_LANG_ID }}></bubble>
 					{/if}
 				</button>
 			</div>
-			<button class="material-icon" on:click={swapDarkMode}>
+			<button class="material-icon" onclick={swapDarkMode}>
 				{#if lightMode}
 					dark_mode
 				{:else}
 					light_mode
 				{/if}
 			</button>
-			<button on:click={() => (window.location.href = 'https://github.com/KharamelMM/WavenCalendar')}>Github</button>
+			<button onclick={() => (window.location.href = 'https://github.com/KharamelMM/WavenCalendar')}>Github</button>
 		</div>
 	</header>
 
@@ -162,5 +176,26 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 		z-index: 0;
+	}
+
+	button.with-icon {
+		display: flex;
+		align-items: center;
+		border: solid 0.2em var(--headline);
+		border-radius: 2em;
+		padding: 0 1em;
+		gap: 0.5em;
+	}
+
+	@media (max-width: 750px) {
+		button.with-icon .text {
+			display: none;
+		}
+	}
+
+	@media (max-width: 500px) {
+		.brand {
+			display: none;
+		}
 	}
 </style>

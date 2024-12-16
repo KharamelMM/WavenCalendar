@@ -33,7 +33,7 @@
 
 		/* Fade in tooltip */
 		opacity: 0;
-		transition: 0.3s;
+		transition: 300ms;
 
 		pointer-events: none;
 	}

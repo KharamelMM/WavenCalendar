@@ -19,6 +19,7 @@
 	import { get } from 'svelte/store';
 	import { momentStore } from '$lib/utils/moment.store';
 	import Filters from '$lib/components/Filters.svelte';
+	import { getStats } from '$lib/supabase/stats';
 
 	let calendar: CalendarType = [];
 
@@ -66,6 +67,7 @@
 
 	onMount(async () => {
 		calendar = await getCalendar(get(currentProfile));
+		console.log(await getStats());
 	});
 	onDestroy(() => {
 		unsubscribe();

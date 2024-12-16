@@ -28,6 +28,7 @@ export type Database = {
 					cycle_index: number;
 					description: string | null;
 					equipment: Database['public']['Enums']['E_Equipment'] | null;
+					id: string;
 					item: Database['public']['Enums']['E_Item'] | null;
 					profile_name: string | null;
 					rarety: Database['public']['Enums']['E_Rarety'] | null;
@@ -37,9 +38,10 @@ export type Database = {
 				Insert: {
 					amount?: number | null;
 					created_at?: string;
-					cycle_index?: number;
+					cycle_index: number;
 					description?: string | null;
 					equipment?: Database['public']['Enums']['E_Equipment'] | null;
+					id?: string;
 					item?: Database['public']['Enums']['E_Item'] | null;
 					profile_name?: string | null;
 					rarety?: Database['public']['Enums']['E_Rarety'] | null;
@@ -52,6 +54,7 @@ export type Database = {
 					cycle_index?: number;
 					description?: string | null;
 					equipment?: Database['public']['Enums']['E_Equipment'] | null;
+					id?: string;
 					item?: Database['public']['Enums']['E_Item'] | null;
 					profile_name?: string | null;
 					rarety?: Database['public']['Enums']['E_Rarety'] | null;
@@ -70,7 +73,13 @@ export type Database = {
 			};
 		};
 		Views: {
-			[_ in never]: never;
+			V_Rewards_Per_Day: {
+				Row: {
+					count: number | null;
+					day: string | null;
+				};
+				Relationships: [];
+			};
 		};
 		Functions: {
 			[_ in never]: never;

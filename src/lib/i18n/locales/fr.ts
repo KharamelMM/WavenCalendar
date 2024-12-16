@@ -79,6 +79,12 @@ const locale: LocaleType = {
 		"Êtes-vous sûr de vouloir supprimer ce profil ? Cette action est irréversible, l'ensemble du calendrier et de ses récompenses associées seront également supprimées.",
 
 	REWARDS_FORM_INFO:
-		'Remplissez les récompenses que vous recevez chaque jour pour nous aider à construire le tableau des récompenses.'
+		'Remplissez les récompenses que vous recevez chaque jour pour nous aider à construire le tableau des récompenses.',
+
+	STATS_LABEL_COUNT_REWARDS: 'Nombre de récompenses',
+	STATS_LABEL_OBJECTIVE: 'Objectif',
+
+	NAVIGATION_HOME: 'Contribuer au projet',
+	NAVIGATION_STATS: "Voir l'évolution du projet"
 };
 export default locale;

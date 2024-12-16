@@ -76,6 +76,12 @@ const locale: LocaleType = {
 	PROFILE_DELETE_CONFIRM:
 		'Are you sure you want to delete this profile? This action is irreversible. The calendar and rewards associated with this profile will be permanently deleted.',
 
-	REWARDS_FORM_INFO: 'Fill in the rewards you receive each day to help us build the reward board.'
+	REWARDS_FORM_INFO: 'Fill in the rewards you receive each day to help us build the reward board.',
+
+	STATS_LABEL_COUNT_REWARDS: 'Rewards count',
+	STATS_LABEL_OBJECTIVE: 'Objective',
+
+	NAVIGATION_HOME: 'Contribute to the project',
+	NAVIGATION_STATS: "View the project's statistics"
 };
 export default locale;

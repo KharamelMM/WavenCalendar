@@ -53,7 +53,13 @@ enum Keys {
 	PROFILE_CREATE_LABEL,
 	PROFILE_DELETE_CONFIRM,
 
-	REWARDS_FORM_INFO
+	REWARDS_FORM_INFO,
+
+	STATS_LABEL_COUNT_REWARDS,
+	STATS_LABEL_OBJECTIVE,
+
+	NAVIGATION_HOME,
+	NAVIGATION_STATS
 }
 
 type LocaleKey = keyof (typeof Keys & typeof RewardType & typeof RaretyType & typeof ItemType & typeof EquipmentType);
