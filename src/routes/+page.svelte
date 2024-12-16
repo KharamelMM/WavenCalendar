@@ -157,7 +157,7 @@
 		justify-content: space-around;
 		flex-direction: column;
 		align-items: center;
-		padding: 0.5em 2em 1em 2em;
+		padding: 0.25em 2em 0.5em 2em;
 	}
 	.profile {
 		height: 1em;
@@ -183,7 +183,7 @@
 
 	h2 {
 		text-align: center;
-		font-size: 3em;
+		font-size: 2.5em;
 		margin: 0;
 	}
 	.months {
