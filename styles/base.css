@@ -54,7 +54,7 @@ body {
 }
 
 * {
-	transition: 100ms;
+	transition: 200ms;
 }
 
 .light {
