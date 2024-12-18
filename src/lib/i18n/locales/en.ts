@@ -81,7 +81,7 @@ const locale: LocaleType = {
 	STATS_LABEL_COUNT_REWARDS: 'Rewards count',
 	STATS_LABEL_OBJECTIVE: 'Objective',
 
-	NAVIGATION_HOME: 'Contribute to the project',
+	NAVIGATION_HOME: 'Complete your calendar',
 	NAVIGATION_STATS: "View the project's statistics",
 
 	DISCONNECT: 'Disconnect'

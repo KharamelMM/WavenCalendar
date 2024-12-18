@@ -68,7 +68,7 @@
 		{/if}
 		{#if $page.url.pathname !== '/WavenCalendar/'}
 			<button class="with-icon" onclick={() => goto('/WavenCalendar')}>
-				<div class="material-icon">volunteer_activism</div>
+				<div class="material-icon">draw</div>
 				<div class="text">{$_(t.NAVIGATION_HOME)}</div>
 			</button>
 		{/if}
