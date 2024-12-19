@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { DAYS } from './const';
 
 export function daysInMonth(month: number, year: number) {
@@ -42,7 +43,7 @@ export function getDayOfMonth(month: number, year: number, day: number, week: nu
 }
 
 export function offsetBetween(date1: Date, date2: Date) {
-	return Math.floor((date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24));
+	return moment(date1).diff(moment(date2), 'days');
 }
 
 export function offsetInCycle(date: Date, startDate: Date) {
