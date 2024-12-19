@@ -18,7 +18,8 @@ const locale: LocaleType = {
 
 	GEMS: 'Gems',
 	KAMAS: 'Kamas',
-	EQUIPMENT: 'Equipment / Companion',
+	EQUIPMENT: 'Equipments',
+	COMPANION: 'Companions',
 	CHEST: 'Super Chests',
 	WAKFU: 'Wakfu Frag.',
 	RUNES: 'Runes',
@@ -30,11 +31,10 @@ const locale: LocaleType = {
 
 	COMPANIONS: 'Companions',
 	SPELLS: 'Spells',
-	EQUIPMENTS: 'Equipment',
+	EQUIPMENTS: 'Equipments',
 
 	RING: 'Ring',
 	ARMBAND: 'Armband',
-	COMPANION: 'Companion',
 
 	AUTHENTICATION_RETRY: 'Retry',
 	AUTHENTICATION_CHECK_EMAIL: 'Check your emails to get your login link.',
@@ -78,12 +78,17 @@ const locale: LocaleType = {
 
 	REWARDS_FORM_INFO: 'Fill in the rewards you receive each day to help us build the reward board.',
 
-	STATS_LABEL_COUNT_REWARDS: 'Rewards count',
+	STATS_LABEL_COUNT_REWARDS: 'Saved rewards count',
 	STATS_LABEL_OBJECTIVE: 'Objective',
 
 	NAVIGATION_HOME: 'Complete your calendar',
-	NAVIGATION_STATS: "View the project's statistics",
+	NAVIGATION_STATS: "Project's statistics",
+	NAVIGATION_CALENDAR: 'Rewards table',
 
-	DISCONNECT: 'Disconnect'
+	DISCONNECT: 'Disconnect',
+
+	CALENDAR_TITLE: 'Waven Rewards Calendar',
+	CALENDAR_INFO:
+		'Waven’s system distributes daily rewards on a 365-day table identical for all players, but with a unique initial offset for each individual. The table presented here is manually completed with information provided by WavenCalendar users, helping you anticipate your rewards.'
 };
 export default locale;

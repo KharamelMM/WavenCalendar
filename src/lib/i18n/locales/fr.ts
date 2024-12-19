@@ -18,7 +18,8 @@ const locale: LocaleType = {
 
 	GEMS: 'Gemmes',
 	KAMAS: 'Kamas',
-	EQUIPMENT: 'Equipement / Compagnon',
+	EQUIPMENT: 'Equipements',
+	COMPANION: 'Compagnons',
 	CHEST: 'Super Coffres',
 	WAKFU: 'Frag. de Wakfu',
 	RUNES: 'Runes',
@@ -34,7 +35,6 @@ const locale: LocaleType = {
 
 	RING: 'Anneau',
 	ARMBAND: 'Brassard',
-	COMPANION: 'Compagnon',
 
 	AUTHENTICATION_RETRY: 'Réessayer',
 	AUTHENTICATION_CHECK_EMAIL: 'Vérifie tes emails pour obtenir ton lien de connexion.',
@@ -81,12 +81,17 @@ const locale: LocaleType = {
 	REWARDS_FORM_INFO:
 		'Remplissez les récompenses que vous recevez chaque jour pour nous aider à construire le tableau des récompenses.',
 
-	STATS_LABEL_COUNT_REWARDS: 'Nombre de récompenses',
+	STATS_LABEL_COUNT_REWARDS: 'Nombre de récompenses enregistrées',
 	STATS_LABEL_OBJECTIVE: 'Objectif',
 
 	NAVIGATION_HOME: 'Compléter ton calendrier',
-	NAVIGATION_STATS: "Voir l'évolution du projet",
+	NAVIGATION_STATS: 'Evolution du projet',
+	NAVIGATION_CALENDAR: 'Tableau des récompenses',
 
-	DISCONNECT: 'Se déconnecter'
+	DISCONNECT: 'Se déconnecter',
+
+	CALENDAR_TITLE: 'Tableau de récompenses dans Waven',
+	CALENDAR_INFO:
+		'Le système de Waven distribue des récompenses quotidiennes sur un tableau de 365 jours identique pour tous, mais avec un décalage initial aléatoire propre à chaque joueur. Le tableau présenté ici est complété manuellement grâce aux informations transmises par les utilisateurs de WavenCalendar, permettant d’anticiper vos gains.'
 };
 export default locale;

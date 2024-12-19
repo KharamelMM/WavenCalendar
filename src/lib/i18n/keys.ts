@@ -60,8 +60,11 @@ enum Keys {
 
 	NAVIGATION_HOME,
 	NAVIGATION_STATS,
+	NAVIGATION_CALENDAR,
 
-	DISCONNECT
+	DISCONNECT,
+	CALENDAR_TITLE,
+	CALENDAR_INFO
 }
 
 type LocaleKey = keyof (typeof Keys & typeof RewardType & typeof RaretyType & typeof ItemType & typeof EquipmentType);

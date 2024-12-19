@@ -60,18 +60,32 @@
 		<div class="brand">
 			<h1>{$_(t.HEADLINE)}</h1>
 		</div>
-		{#if $page.url.pathname !== '/WavenCalendar/stats'}
-			<button class="with-icon" onclick={() => goto('/WavenCalendar/stats')}>
-				<div class="material-icon">search</div>
-				<div class="text">{$_(t.NAVIGATION_STATS)}</div>
-			</button>
-		{/if}
-		{#if $page.url.pathname !== '/WavenCalendar/'}
-			<button class="with-icon" onclick={() => goto('/WavenCalendar')}>
+		<div class="navigation">
+			<button
+				disabled={$page.url.pathname === '/WavenCalendar/'}
+				class="with-icon"
+				onclick={() => goto('/WavenCalendar')}
+			>
 				<div class="material-icon">edit_calendar</div>
 				<div class="text">{$_(t.NAVIGATION_HOME)}</div>
 			</button>
-		{/if}
+			<button
+				disabled={$page.url.pathname === '/WavenCalendar/stats'}
+				class="with-icon"
+				onclick={() => goto('/WavenCalendar/stats')}
+			>
+				<div class="material-icon">search</div>
+				<div class="text">{$_(t.NAVIGATION_STATS)}</div>
+			</button>
+			<button
+				disabled={$page.url.pathname === '/WavenCalendar/calendar'}
+				class="with-icon"
+				onclick={() => goto('/WavenCalendar/calendar')}
+			>
+				<div class="material-icon">calendar_month</div>
+				<div class="text">{$_(t.NAVIGATION_CALENDAR)}</div>
+			</button>
+		</div>
 		<div class="controls">
 			<div class="langs">
 				<button onclick={() => setLang('fr')} disabled={lang === 'fr'}>
@@ -195,13 +209,24 @@
 		color: var(--bg);
 	}
 
-	@media (max-width: 750px) {
+	.navigation {
+		display: flex;
+		gap: 0.5em;
+		justify-content: center;
+	}
+
+	.navigation button:disabled {
+		background-color: var(--headline);
+		color: var(--bg);
+	}
+
+	@media (max-width: 950px) {
 		button.with-icon .text {
 			display: none;
 		}
 	}
 
-	@media (max-width: 500px) {
+	@media (max-width: 700px) {
 		.brand {
 			display: none;
 		}

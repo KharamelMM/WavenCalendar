@@ -1,5 +1,6 @@
 export enum RewardType {
 	EQUIPMENT = 'EQUIPMENT',
+	COMPANION = 'COMPANION',
 	GEMS = 'GEMS',
 	KAMAS = 'KAMAS',
 	WAKFU = 'WAKFU',

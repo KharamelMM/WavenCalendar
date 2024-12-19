@@ -23,7 +23,7 @@
 
 	function getClass(reward?: Reward, filters?: { [key in string]: boolean }) {
 		if (reward) {
-			if (reward.type === RewardType.EQUIPMENT) {
+			if (reward.type === RewardType.EQUIPMENT || reward.type === RewardType.COMPANION) {
 				if (!filters || filters[reward.rarety]) {
 					return reward.rarety.toLowerCase();
 				}
@@ -43,8 +43,9 @@
 				case RewardType.CHEST:
 					tooltip += ` ${$_(reward.equipment)}`;
 					break;
+				case RewardType.COMPANION:
 				case RewardType.EQUIPMENT:
-					tooltip = `${reward.amount}× ${$_(reward.item)} ${$_(reward.rarety)}`;
+					tooltip = `${reward.amount}× ${$_(reward.type)} ${$_(reward.rarety)}`;
 					break;
 			}
 			return tooltip;

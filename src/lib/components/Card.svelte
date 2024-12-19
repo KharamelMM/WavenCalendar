@@ -10,9 +10,20 @@
 
 	export let outline = false;
 	export let modal = false;
+
+	export let classes = '';
+
+	export let width: string = 'auto';
+	export let height: string = 'auto';
 </script>
 
-<section transition:scale={{ easing: backOut, duration: 200 }} class:outline class:modal>
+<section
+	transition:scale={{ easing: backOut, duration: 200 }}
+	class:outline
+	class:modal
+	class={classes}
+	style="width: {width}; height: {height}"
+>
 	<header>
 		{#if onclose}
 			<button onclick={onclose} class="material-icon">close</button>
@@ -48,6 +59,8 @@
 	}
 	section {
 		background-color: var(--bg-secondary);
+
+		border: 0.2em solid var(--color);
 		padding: 0.5em 0.75em;
 
 		width: fit-content;

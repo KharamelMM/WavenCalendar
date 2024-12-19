@@ -88,7 +88,7 @@ export type Database = {
 			E_Equipment: 'COMPANIONS' | 'SPELLS' | 'EQUIPMENTS';
 			E_Item: 'RING' | 'ARMBAND' | 'COMPANION';
 			E_Rarety: 'COMMON' | 'RARE' | 'KROSMIC' | 'INFINITE';
-			E_Reward: 'GEMS' | 'KAMAS' | 'EQUIPMENT' | 'CHEST' | 'WAKFU' | 'RUNES';
+			E_Reward: 'GEMS' | 'KAMAS' | 'EQUIPMENT' | 'CHEST' | 'WAKFU' | 'RUNES' | 'COMPANION';
 		};
 		CompositeTypes: {
 			[_ in never]: never;

@@ -21,14 +21,13 @@
 
 	// Set default values
 	let rewardType = reward?.type ?? RewardType.EQUIPMENT;
-	let raretyType = reward?.type === RewardType.EQUIPMENT ? reward.rarety : RaretyType.COMMON;
+	let raretyType =
+		reward?.type === RewardType.EQUIPMENT || reward?.type === RewardType.COMPANION ? reward.rarety : RaretyType.COMMON;
 	let equipmentType =
 		reward?.type === RewardType.RUNES || reward?.type === RewardType.CHEST
 			? reward.equipment
 			: EquipmentType.EQUIPMENTS;
-	let itemType = reward?.type === RewardType.EQUIPMENT ? reward.item : ItemType.RING;
 	let amount = reward?.amount ?? 1;
-	let description = reward?.type === RewardType.EQUIPMENT ? reward.description : undefined;
 
 	function save() {
 		let reward: Reward;
@@ -38,7 +37,8 @@
 				reward = { ...base, type: rewardType, amount: amount as 100 | 150 | 200 | 250 };
 				break;
 			case RewardType.EQUIPMENT:
-				reward = { ...base, type: rewardType, rarety: raretyType, item: itemType, description };
+			case RewardType.COMPANION:
+				reward = { ...base, type: rewardType, rarety: raretyType };
 				break;
 			case RewardType.CHEST:
 				reward = { ...base, type: rewardType, equipment: equipmentType };
@@ -57,9 +57,8 @@
 
 <section>
 	<ComboBox title={$_(t.REWARD_LABEL_TYPE)} values={enumKeys(RewardType)} bind:value={rewardType} required />
-	{#if rewardType === RewardType.EQUIPMENT}
+	{#if rewardType === RewardType.EQUIPMENT || rewardType === RewardType.COMPANION}
 		<ComboBox title={$_(t.REWARD_LABEL_RARITY)} values={Object.keys(RaretyType)} bind:value={raretyType} required />
-		<ComboBox title={$_(t.REWARD_LABEL_ITEM_TYPE)} values={Object.keys(ItemType)} bind:value={itemType} required />
 	{:else if rewardType === RewardType.CHEST || rewardType === RewardType.RUNES}
 		<ComboBox
 			title={$_(t.REWARD_LABEL_EQUIPMENT_TYPE)}
@@ -76,12 +75,6 @@
 			<input type="number" min="1" max="5000" bind:value={amount} />
 		{/if}
 	</Field>
-
-	{#if rewardType === RewardType.EQUIPMENT}
-		<Field title={$_(t.REWARD_LABEL_EQUIPMENT_MORE)}>
-			<input type="text" placeholder={$_(t.EQUIPMENT_MORE_PLACEHOLDER)} bind:value={description} />
-		</Field>
-	{/if}
 
 	<div class="controls">
 		<button class="secondary" onclick={() => oncancel()}>{$_(t.CANCEL)}</button>
