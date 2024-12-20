@@ -6,6 +6,7 @@
 	import { _ } from 'svelte-i18n';
 	import { onDestroy } from 'svelte';
 	import { get } from 'svelte/store';
+	import { getRewardsClass } from '$lib/utils/rewards';
 
 	export let currentDate: Date;
 	export let dayOfMonth: number;
@@ -15,24 +16,10 @@
 	const today = new Date();
 	let btnClass: string | undefined = '';
 	const unsubscribe = localStorageStore.subscribe((state) => {
-		btnClass = getClass(reward, state.filters);
+		btnClass = getRewardsClass(reward, state.filters);
 	});
 	$: {
-		btnClass = getClass(reward, get(localStorageStore).filters);
-	}
-
-	function getClass(reward?: Reward, filters?: { [key in string]: boolean }) {
-		if (reward) {
-			if (reward.type === RewardType.EQUIPMENT || reward.type === RewardType.COMPANION) {
-				if (!filters || filters[reward.rarety]) {
-					return reward.rarety.toLowerCase();
-				}
-			} else {
-				if (!filters || filters[reward.type]) {
-					return reward.type.toLowerCase();
-				}
-			}
-		}
+		btnClass = getRewardsClass(reward, get(localStorageStore).filters);
 	}
 
 	function getTooltip() {
