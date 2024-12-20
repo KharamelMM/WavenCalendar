@@ -89,6 +89,7 @@
 		flex-direction: column;
 		align-items: center;
 		gap: 1.5em;
+		margin-bottom: 2em;
 	}
 	.info {
 		display: flex;
