@@ -66,7 +66,6 @@
 
 	onMount(async () => {
 		calendar = await getCalendar(get(currentProfile));
-		console.log(await getStats());
 	});
 	onDestroy(() => {
 		unsubscribe();

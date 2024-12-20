@@ -10,6 +10,7 @@
 
 	export let reward: Reward | undefined;
 	export let index: number;
+	export let primary: boolean = false;
 	let cardClass: string | undefined = '';
 
 	const unsubscribe = localStorageStore.subscribe((state) => {
@@ -23,15 +24,24 @@
 	});
 </script>
 
-<Card classes={cardClass} title={`${index} `} width="10em" height="3.5em">
-	{#if reward}
-		{reward.amount}x {$_(reward.type)}
-		{#if reward.type === RewardType.EQUIPMENT || reward.type === RewardType.COMPANION}
-			{$_(reward.rarety)}
-		{:else if reward.type === RewardType.RUNES || reward.type === RewardType.CHEST}
-			{$_(reward.equipment)}
+<Card classes={cardClass} width="10em" height="3.5em" {...{ primary, outline: primary }}>
+	<div class="index">{index}</div>
+	<b>
+		{#if reward}
+			{reward.amount}x {$_(reward.type)}
+			{#if reward.type === RewardType.EQUIPMENT || reward.type === RewardType.COMPANION}
+				{$_(reward.rarety)}
+			{:else if reward.type === RewardType.RUNES || reward.type === RewardType.CHEST}
+				{$_(reward.equipment)}
+			{/if}
+		{:else}
+			-
 		{/if}
-	{:else}
-		?
-	{/if}
+	</b>
 </Card>
+
+<style>
+	.index {
+		margin-left: -0.5em;
+	}
+</style>
