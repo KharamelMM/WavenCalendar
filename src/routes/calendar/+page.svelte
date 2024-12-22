@@ -76,7 +76,7 @@
 		<section>
 			{#each { length: CYCLE_LENGTH } as _, i}
 				<div class="reward" id={`reward-${i}`}>
-					<CycleDay reward={cycle[i]} index={i} primary={i === getCurrentDay(offset)} />
+					<CycleDay reward={cycle[i]} index={i} currentIndex={getCurrentDay(offset)} />
 				</div>
 			{/each}
 		</section>

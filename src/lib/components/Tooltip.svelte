@@ -36,6 +36,7 @@
 		transition: 300ms;
 
 		pointer-events: none;
+		text-transform: capitalize;
 	}
 
 	.text::after {
