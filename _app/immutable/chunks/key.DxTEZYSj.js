@@ -1,0 +1,1 @@
+import{h as r,d as c,v as i,w as _,x as h,b as d,l as k,k as l,U as u,m as v}from"./utils.CUNAnymL.js";function b(f,n,t){r&&c();var e=f,s=u,a,o=i()?_:h;d(()=>{o(s,s=n())&&(a&&k(a),a=l(()=>t(e)))}),r&&(e=v)}export{b as k};
