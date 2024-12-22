@@ -2,7 +2,9 @@ import type { Enums } from '$lib/supabase/database.types';
 import type { RewardType } from './RewardType';
 
 export type Reward = BaseReward &
-	(GemsReward | KamasReward | WakfuReward | EquipmentReward | CompanionReward | ChestReward | RuneReward);
+	(GemsReward | KamasReward | WakfuReward | EquipmentReward | CompanionReward | ChestReward | RuneReward) & {
+		validated?: boolean;
+	};
 
 type BaseReward = {
 	cycle_index: number;

@@ -18,7 +18,6 @@
 	import { get } from 'svelte/store';
 	import { momentStore } from '$lib/utils/moment.store';
 	import Filters from '$lib/components/Filters.svelte';
-	import { getStats } from '$lib/supabase/stats';
 
 	let calendar: CalendarType = [];
 
@@ -36,6 +35,7 @@
 			throw new Error('No selected day');
 		}
 
+		reward.validated = false;
 		calendar[offsetInCycle(selectedDay, CYCLE_START)] = reward;
 		selectedDay = undefined;
 

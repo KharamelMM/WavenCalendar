@@ -34,6 +34,7 @@ export type Database = {
 					rarety: Database['public']['Enums']['E_Rarety'] | null;
 					type: Database['public']['Enums']['E_Reward'];
 					user_id: string;
+					validated: boolean;
 				};
 				Insert: {
 					amount?: number | null;
@@ -47,6 +48,7 @@ export type Database = {
 					rarety?: Database['public']['Enums']['E_Rarety'] | null;
 					type: Database['public']['Enums']['E_Reward'];
 					user_id?: string;
+					validated?: boolean;
 				};
 				Update: {
 					amount?: number | null;
@@ -60,6 +62,7 @@ export type Database = {
 					rarety?: Database['public']['Enums']['E_Rarety'] | null;
 					type?: Database['public']['Enums']['E_Reward'];
 					user_id?: string;
+					validated?: boolean;
 				};
 				Relationships: [
 					{

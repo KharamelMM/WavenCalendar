@@ -10,9 +10,8 @@
 	import { currentProfile } from '$lib/utils/profile.store';
 	import CycleDay from './CycleDay.svelte';
 	import type { Calendar } from '$lib/types/Calendar';
-	import { onDestroy, onMount } from 'svelte';
+	import { onDestroy } from 'svelte';
 	import { getCalendar } from '$lib/supabase/calendar';
-	import { get } from 'svelte/store';
 	import { getOffset } from '$lib/utils/rewards';
 	import { offsetInCycle } from '$lib/utils/date';
 
@@ -76,7 +75,7 @@
 		<section>
 			{#each { length: CYCLE_LENGTH } as _, i}
 				<div class="reward" id={`reward-${i}`}>
-					<CycleDay reward={cycle[i]} index={i} currentIndex={getCurrentDay(offset)} />
+					<CycleDay reward={cycle[i]} index={i} currentIndex={getCurrentDay(offset)} {personalCalendar} />
 				</div>
 			{/each}
 		</section>

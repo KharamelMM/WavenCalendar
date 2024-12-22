@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { DAYS } from './const';
+import { CYCLE_LENGTH, DAYS } from './const';
 
 export function daysInMonth(month: number, year: number) {
 	return new Date(year, month + 1, 0).getDate();
@@ -47,5 +47,5 @@ export function offsetBetween(date1: Date, date2: Date) {
 }
 
 export function offsetInCycle(date: Date, startDate: Date) {
-	return ((offsetBetween(date, startDate) % 365) + 365) % 365;
+	return ((offsetBetween(date, startDate) % CYCLE_LENGTH) + CYCLE_LENGTH) % CYCLE_LENGTH;
 }
