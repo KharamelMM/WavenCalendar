@@ -89,6 +89,10 @@ const locale: LocaleType = {
 
 	CALENDAR_TITLE: 'Waven Rewards Calendar',
 	CALENDAR_INFO:
-		'Waven’s system distributes daily rewards on a 365-day table identical for all players, but with a unique initial offset for each individual. The table presented here is manually completed with information provided by WavenCalendar users, helping you anticipate your rewards.'
+		'Waven’s system distributes daily rewards on a 365-day table identical for all players, but with a unique initial offset for each individual. The table presented here is manually completed with information provided by WavenCalendar users, helping you anticipate your rewards.',
+	CALENDAR_OFFSET_INFO:
+		'The proposed offsets and their probability are calculated only from the already known calendar. It is possible that your actual offset was not part of our calculations.',
+	CALENDAR_OFFSET_KEY: 'Offset',
+	CALENDAR_OFFSET_PROBABILITY_KEY: 'Probability'
 };
 export default locale;

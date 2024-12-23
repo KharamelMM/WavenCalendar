@@ -64,7 +64,11 @@ enum Keys {
 
 	DISCONNECT,
 	CALENDAR_TITLE,
-	CALENDAR_INFO
+	CALENDAR_INFO,
+
+	CALENDAR_OFFSET_INFO,
+	CALENDAR_OFFSET_KEY,
+	CALENDAR_OFFSET_PROBABILITY_KEY
 }
 
 type LocaleKey = keyof (typeof Keys & typeof RewardType & typeof RaretyType & typeof ItemType & typeof EquipmentType);

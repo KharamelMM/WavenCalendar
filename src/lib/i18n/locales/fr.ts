@@ -92,6 +92,10 @@ const locale: LocaleType = {
 
 	CALENDAR_TITLE: 'Tableau de récompenses dans Waven',
 	CALENDAR_INFO:
-		'Le système de Waven distribue des récompenses quotidiennes sur un tableau de 365 jours identique pour tous, mais avec un décalage initial aléatoire propre à chaque joueur. Le tableau présenté ici est complété manuellement grâce aux informations transmises par les utilisateurs de WavenCalendar, permettant d’anticiper vos gains.'
+		'Le système de Waven distribue des récompenses quotidiennes sur un tableau de 365 jours identique pour tous, mais avec un décalage initial aléatoire propre à chaque joueur. Le tableau présenté ici est complété manuellement grâce aux informations transmises par les utilisateurs de WavenCalendar, permettant d’anticiper vos gains.',
+	CALENDAR_OFFSET_INFO:
+		"Les décalages proposés et leur probabilité ne sont calculés qu'à partir du calendrier déjà connu. Il est possible que votre décalage réel n'ait pas fait partie de nos calculs",
+	CALENDAR_OFFSET_KEY: 'Décalage',
+	CALENDAR_OFFSET_PROBABILITY_KEY: 'Probabilité'
 };
 export default locale;

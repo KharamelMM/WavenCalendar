@@ -14,6 +14,7 @@
 	import { getCalendar } from '$lib/supabase/calendar';
 	import { getOffset } from '$lib/utils/rewards';
 	import { offsetInCycle } from '$lib/utils/date';
+	import OffsetsScore from './OffsetsScore.svelte';
 
 	const cycle: Calendar = [];
 	let personalCalendar: Calendar = [];
@@ -21,8 +22,9 @@
 
 	let currentDay = -1;
 
+	$: offsetsByScore = getOffset(personalCalendar, cycle);
+
 	$: {
-		offset = getOffset(personalCalendar, cycle);
 		currentDay = getCurrentDay(offset);
 		const el = document.querySelector(`#reward-${currentDay}`);
 		if (el) {
@@ -68,9 +70,12 @@
 				{$_(t.CALENDAR_INFO)}
 			</div>
 		</div>
-		<button class="profile" onclick={() => (openProfileModal = true)}>
-			{$currentProfile ? `${$_(t.PROFILE)} : ${$currentProfile}` : $_(t.PROFILE_DEFAULT)}
-		</button>
+		<div>
+			<button class="profile" onclick={() => (openProfileModal = true)}>
+				{$currentProfile ? `${$_(t.PROFILE)} : ${$currentProfile}` : $_(t.PROFILE_DEFAULT)}
+			</button>
+		</div>
+		<OffsetsScore {offsetsByScore} bind:currentOffset={offset} />
 		<Filters />
 		<section>
 			{#each { length: CYCLE_LENGTH } as _, i}
