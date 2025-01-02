@@ -7,7 +7,7 @@
 	import { _ } from 'svelte-i18n';
 	import { get } from 'svelte/store';
 
-	const REWARD_COUNT_OBJECTIVE = 500;
+	const REWARD_COUNT_OBJECTIVE = 700;
 
 	let ctx;
 	let chartCanvas: HTMLCanvasElement;
