@@ -32,13 +32,13 @@ function offsetDayOfWeek(dayIndex: number, weekOffset: number) {
  * @param weekOffset
  * @returns
  */
-export function nbDistinctWeeksOfMonth(month: number, year: number, weekOffset: number = 0) {
+export function nbDistinctWeeksOfMonth(month: number, year: number, weekOffset: number = 1) {
 	const firstDay = offsetDayOfWeek(firstDayOfMonth(month, year), weekOffset);
 	const days = daysInMonth(month, year);
 	return Math.ceil((firstDay + days) / 7);
 }
 
-export function getDayOfMonth(month: number, year: number, day: number, week: number, weekOffset: number = 0) {
+export function getDayOfMonth(month: number, year: number, day: number, week: number, weekOffset: number = 1) {
 	return day + week * DAYS.length - offsetDayOfWeek(firstDayOfMonth(month, year), weekOffset) + 1;
 }
 
