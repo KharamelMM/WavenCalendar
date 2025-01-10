@@ -61,7 +61,7 @@
 			.format('dddd DD MMMM YYYY')}
 	>
 		<section class:primary>
-			<Card classes={cardClass} width="10em" height="8.5em" {...{ primary, outline: primary }}>
+			<Card width="10em" height="8.5em" {...{ primary, outline: primary }}>
 				<div class="header">
 					<small>
 						{#if currentIndex > 0}
