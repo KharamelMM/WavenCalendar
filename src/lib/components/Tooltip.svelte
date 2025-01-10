@@ -26,8 +26,8 @@
 
 		/* Position the tooltip text */
 		position: absolute;
-		z-index: 1;
-		bottom: 125%;
+		z-index: 5;
+		bottom: 100%;
 		left: 50%;
 		transform: translateX(-50%);
 
