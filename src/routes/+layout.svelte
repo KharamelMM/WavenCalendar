@@ -70,14 +70,6 @@
 				<div class="text">{$_(t.NAVIGATION_HOME)}</div>
 			</button>
 			<button
-				disabled={$page.url.pathname === '/WavenCalendar/stats'}
-				class="with-icon"
-				onclick={() => goto('/WavenCalendar/stats')}
-			>
-				<div class="material-icon">search</div>
-				<div class="text">{$_(t.NAVIGATION_STATS)}</div>
-			</button>
-			<button
 				disabled={$page.url.pathname === '/WavenCalendar/calendar'}
 				class="with-icon"
 				onclick={() => goto('/WavenCalendar/calendar')}

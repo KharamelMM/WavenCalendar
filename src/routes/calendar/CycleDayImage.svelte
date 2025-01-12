@@ -12,8 +12,7 @@
 
 	import GEMS from '$lib/ressources/gems.png';
 	import WAKFU from '$lib/ressources/wakfu.png';
-	import KAMAS from '$lib/ressources/kamas.png';
-	import UNIQUE_KAMAS from '$lib/ressources/unique_kama.png';
+	import KAMA from '$lib/ressources/kama.png';
 
 	import SPELL_RUNE from '$lib/ressources/spell_rune.png';
 	import EQUIPMENT_RUNE from '$lib/ressources/equipment_rune.png';
@@ -40,11 +39,7 @@
 				img = WAKFU;
 				break;
 			case RewardType.KAMAS:
-				if (reward.amount === 1) {
-					img = UNIQUE_KAMAS;
-				} else {
-					img = KAMAS;
-				}
+				img = KAMA;
 				break;
 			case RewardType.RUNES:
 				switch (reward.equipment) {
@@ -138,7 +133,7 @@
 		font-weight: bolder;
 		filter: drop-shadow(0 0 0.1em black);
 		z-index: 1;
-
+		font-family: Arial, Helvetica, sans-serif;
 		text-shadow:
 			1px 1px 1px #000,
 			-1px 1px 1px #000,
@@ -158,9 +153,10 @@
 		text-align: center;
 		color: white !important;
 		font-size: 4em;
-		font-weight: lighter;
-		opacity: 0.6;
+		font-weight: bolder;
 		filter: drop-shadow(0 0 0.1em black);
+		opacity: 0.5;
+		font-family: Arial, Helvetica, sans-serif;
 		text-shadow:
 			1px 1px 1px #000,
 			-1px 1px 1px #000,
