@@ -120,6 +120,8 @@
 	{ "cycle_index": 118, "type": "EQUIPMENT", "rarety": "COMMON", "equipment": null, "item": null, "amount": 50 },
 	{ "cycle_index": 119, "type": "CHEST", "rarety": null, "equipment": "COMPANIONS", "item": null, "amount": 1 },
 	{ "cycle_index": 120, "type": "WAKFU", "rarety": null, "equipment": null, "item": null, "amount": 2500 },
+	{ "cycle_index": 121, "type": "CHEST", "rarety": null, "equipment": "EQUIPMENTS", "item": null, "amount": 2 },
+	{ "cycle_index": 122, "type": "CHEST", "rarety": null, "equipment": "SPELLS", "item": null, "amount": 1 },
 	{ "cycle_index": 123, "type": "WAKFU", "rarety": null, "equipment": null, "item": null, "amount": 2500 },
 	{ "cycle_index": 124, "type": "RUNES", "rarety": null, "equipment": "SPELLS", "item": null, "amount": 20 },
 	{ "cycle_index": 125, "type": "KAMAS", "rarety": null, "equipment": null, "item": null, "amount": 5000 },
