@@ -1,50 +1,55 @@
 import type { Calendar } from '$lib/types/Calendar';
 import type { Reward } from '$lib/types/Reward';
-import type { PostgrestSingleResponse } from '@supabase/supabase-js';
+import { localStorageStore } from '$lib/utils/localstorage.store';
+import { get } from 'svelte/store';
 import { supabase } from './client';
-import type { Tables, TablesInsert } from './database.types';
+import { DEFAULT_PROFILE_NAME } from '$lib/utils/const';
+import type { PostgrestSingleResponse } from '@supabase/supabase-js';
+import type { Tables } from './database.types';
 
-const TABLE_NAME = 'T_Reward';
+export async function setReward(profile: string, reward: Reward) {
+	localStorageStore.update((state) => {
+		state.profiles[profile][reward.cycle_index] = reward;
+		return state;
+	});
+	return reward;
+}
 
-export async function setReward(profile: string | undefined, reward: TablesInsert<typeof TABLE_NAME>) {
-	const response = await supabase
-		.from(TABLE_NAME)
-		.upsert({ ...reward, profile_name: profile }, { onConflict: 'user_id, profile_name, cycle_index' })
-		.select();
+export async function deleteReward(profile: string, cycleOffset: number) {
+	let response: Reward | undefined;
+	localStorageStore.update((state) => {
+		response = state.profiles[profile][cycleOffset];
+		state.profiles[profile][cycleOffset] = undefined;
+		return state;
+	});
+	return response;
+}
+
+export async function getCalendar(profile: string): Promise<Calendar> {
+	return get(localStorageStore).profiles[profile];
+}
+
+export async function exportAllFromSupabase(): Promise<{ [key in string]: Calendar }> {
+	console.log('Start exporting all profiles from Supabase');
+	const response = await supabase.from('T_Profile').select();
 	if (response.error) {
 		throw response.error;
 	}
-	return response.data[0];
+	const profiles = [undefined, ...response.data.map((profile) => profile.name)];
+	const result = {} as { [key in string]: Calendar };
+	for (const profile of profiles) {
+		result[profile ?? DEFAULT_PROFILE_NAME] = await exportProfileFromSupabase(profile);
+	}
+	return result;
 }
 
-export async function deleteReward(profile: string | undefined, cycleOffset: number) {
-	let response: PostgrestSingleResponse<Tables<typeof TABLE_NAME>[]>;
+async function exportProfileFromSupabase(profile: string | null = null): Promise<Calendar> {
+	console.log(`Start exporting profile ${profile} from Supabase`);
+	let response: PostgrestSingleResponse<Tables<'T_Reward'>[]>;
 	if (profile) {
-		response = await supabase
-			.from(TABLE_NAME)
-			.delete()
-			.match({ profile_name: profile, cycle_index: cycleOffset })
-			.select();
+		response = await supabase.from('T_Reward').select().eq('profile_name', profile);
 	} else {
-		response = await supabase
-			.from(TABLE_NAME)
-			.delete()
-			.match({ cycle_index: cycleOffset })
-			.is('profile_name', null)
-			.select();
-	}
-	if (response.error) {
-		throw response.error;
-	}
-	return response.data[0];
-}
-
-export async function getCalendar(profile: string | null = null): Promise<Calendar> {
-	let response: PostgrestSingleResponse<Tables<typeof TABLE_NAME>[]>;
-	if (profile) {
-		response = await supabase.from(TABLE_NAME).select().eq('profile_name', profile);
-	} else {
-		response = await supabase.from(TABLE_NAME).select().is('profile_name', null);
+		response = await supabase.from('T_Reward').select().is('profile_name', null);
 	}
 
 	if (response.error) {

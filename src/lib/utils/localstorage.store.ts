@@ -1,14 +1,24 @@
 import { get, writable, type Updater } from 'svelte/store';
 import { browser } from '$app/environment';
+import type { Calendar } from '$lib/types/Calendar';
 
-type LocalStorageType = { [key: string]: unknown; filters?: { [key in string]: boolean } };
+export type LocalStorageType = {
+	[key: string]: unknown;
+	filters?: { [key in string]: boolean };
+	profiles: { [key in string]: Calendar };
+};
 
 function getLocalStorage() {
-	const store = writable<LocalStorageType>({});
+	const store = writable<LocalStorageType>({ profiles: { default: [] } });
 	const { subscribe, set } = store;
 
 	if (browser && localStorage.storable) {
-		set(JSON.parse(localStorage.storable));
+		const localStorageValue = JSON.parse(localStorage.storable) as LocalStorageType;
+		if (!Object.hasOwn(localStorageValue, 'profiles')) {
+			localStorageValue.profiles = { default: [] };
+			localStorage.storable = JSON.stringify(localStorageValue);
+		}
+		set(localStorageValue);
 	}
 
 	return {

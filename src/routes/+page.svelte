@@ -5,7 +5,7 @@
 	import FlyingSection from '$lib/components/FlyingSection.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import type { Reward } from '$lib/types/Reward';
-	import { CYCLE_START, MONTHS } from '$lib/utils/const';
+	import { CYCLE_START, DEFAULT_PROFILE_NAME, MONTHS } from '$lib/utils/const';
 	import type { Calendar as CalendarType } from '$lib/types/Calendar';
 	import { offsetInCycle } from '$lib/utils/date';
 	import Modal from '$lib/components/Modal.svelte';
@@ -101,7 +101,7 @@
 <FlyingSection>
 	<header>
 		<button class="profile" onclick={() => (openProfileModal = true)}>
-			{$currentProfile ? `${$_(t.PROFILE)} : ${$currentProfile}` : $_(t.PROFILE_DEFAULT)}
+			{$currentProfile !== DEFAULT_PROFILE_NAME ? `${$_(t.PROFILE)} : ${$currentProfile}` : $_(t.PROFILE_DEFAULT)}
 		</button>
 		<div class="year-controls">
 			<button

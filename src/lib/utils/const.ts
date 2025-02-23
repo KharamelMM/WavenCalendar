@@ -26,3 +26,5 @@ export const DAYS = [
 
 export const CYCLE_LENGTH = 365;
 export const CYCLE_START = new Date(2024, 0, 1);
+
+export const DEFAULT_PROFILE_NAME = 'default';

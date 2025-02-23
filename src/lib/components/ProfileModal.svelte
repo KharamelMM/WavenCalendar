@@ -1,65 +1,76 @@
 <script lang="ts">
 	import { t } from '$lib/i18n';
 	import { _ } from 'svelte-i18n';
-	import { createProfile, deleteProfile, getProfiles } from '$lib/supabase/profile';
 	import { currentProfile } from '$lib/utils/profile.store';
-	import { onMount } from 'svelte';
 	import Modal from './Modal.svelte';
+	import { get } from 'svelte/store';
+	import { localStorageStore } from '$lib/utils/localstorage.store';
+	import { DEFAULT_PROFILE_NAME } from '$lib/utils/const';
 
 	export let onclose: (() => void) | undefined = undefined;
 	let newProfileName = '';
-	let profiles: string[] = [];
 
 	function onCreateProfile() {
 		if (newProfileName === '') {
 			return;
 		}
-		createProfile(newProfileName);
-		profiles = [...profiles, newProfileName];
+		localStorageStore.update((state) => {
+			const profiles = state.profiles;
+			if (profiles) {
+				profiles[newProfileName] = [];
+			}
+			return { ...state, profiles };
+		});
+		useProfile(newProfileName);
 		newProfileName = '';
 	}
 
 	function onDeleteProfile(name: string) {
-		deleteProfile(name);
-		profiles = profiles.filter((profile) => profile !== name);
+		localStorageStore.update((state) => {
+			const profiles = state.profiles;
+			if (profiles) {
+				delete profiles[name];
+			}
+			return { ...state, profiles };
+		});
+		if (name === get(currentProfile)) {
+			useProfile(Object.keys(get(localStorageStore).profiles)[0]);
+		}
 	}
 
-	function useProfile(name: string | undefined) {
+	function useProfile(name: string) {
 		currentProfile.set(name);
 		if (onclose) {
 			onclose();
 		}
 	}
-
-	onMount(async () => {
-		profiles = await getProfiles();
-	});
 </script>
 
-<Modal title={$currentProfile ?? $_(t.PROFILE_DEFAULT)} {onclose}>
+<Modal title={$currentProfile === DEFAULT_PROFILE_NAME ? $_(t.PROFILE_DEFAULT) : $currentProfile} {onclose}>
 	<div>
 		{$_(t.PROFILE_INFO)}
 	</div>
 	<div class="profiles">
-		<div>
-			<button onclick={() => useProfile(undefined)}>
-				{$_(t.PROFILE_DEFAULT)}
-			</button>
-		</div>
-		{#each profiles as profile}
+		{#each Object.keys($localStorageStore.profiles || {}) as profile}
 			<div>
 				<button onclick={() => useProfile(profile)}>
-					{profile}
+					{#if profile === DEFAULT_PROFILE_NAME}
+						{$_(t.PROFILE_DEFAULT)}
+					{:else}
+						{profile}
+					{/if}
 				</button>
 
-				<button
-					class="material-icon delete-profile"
-					onclick={() => {
-						if (confirm($_(t.PROFILE_DELETE_CONFIRM))) {
-							onDeleteProfile(profile);
-						}
-					}}>delete</button
-				>
+				{#if profile !== DEFAULT_PROFILE_NAME}
+					<button
+						class="material-icon delete-profile"
+						onclick={() => {
+							if (confirm($_(t.PROFILE_DELETE_CONFIRM))) {
+								onDeleteProfile(profile);
+							}
+						}}>delete</button
+					>
+				{/if}
 			</div>
 		{/each}
 	</div>

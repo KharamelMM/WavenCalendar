@@ -4,7 +4,7 @@
 	import { t } from '$lib/i18n';
 	import { _ } from 'svelte-i18n';
 	import type { Reward } from '$lib/types/Reward';
-	import { CYCLE_LENGTH, CYCLE_START } from '$lib/utils/const';
+	import { CYCLE_LENGTH, CYCLE_START, DEFAULT_PROFILE_NAME } from '$lib/utils/const';
 	import Filters from '$lib/components/Filters.svelte';
 	import ProfileModal from '$lib/components/ProfileModal.svelte';
 	import { currentProfile } from '$lib/utils/profile.store';
@@ -72,7 +72,7 @@
 		</div>
 		<div>
 			<button class="profile" onclick={() => (openProfileModal = true)}>
-				{$currentProfile ? `${$_(t.PROFILE)} : ${$currentProfile}` : $_(t.PROFILE_DEFAULT)}
+				{$currentProfile !== DEFAULT_PROFILE_NAME ? `${$_(t.PROFILE)} : ${$currentProfile}` : $_(t.PROFILE_DEFAULT)}
 			</button>
 		</div>
 		<OffsetsScore {offsetsByScore} bind:currentOffset={offset} />
@@ -94,6 +94,7 @@
 		align-items: center;
 		gap: 1.5em;
 		margin-bottom: 2em;
+		padding: 0 2em;
 	}
 	.info {
 		display: flex;
