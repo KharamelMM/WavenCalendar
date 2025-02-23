@@ -15,6 +15,7 @@
 	import { getOffset } from '$lib/utils/rewards';
 	import { offsetInCycle } from '$lib/utils/date';
 	import OffsetsScore from './OffsetsScore.svelte';
+	import { browser } from '$app/environment';
 
 	const cycle: Calendar = [];
 	let personalCalendar: Calendar = [];
@@ -26,12 +27,14 @@
 
 	$: {
 		currentDay = getCurrentDay(offset);
-		const el = document.querySelector(`#reward-${currentDay}`);
-		if (el) {
-			el.scrollIntoView({
-				block: 'center',
-				behavior: 'smooth'
-			});
+		if (browser) {
+			const el = document.querySelector(`#reward-${currentDay}`);
+			if (el) {
+				el.scrollIntoView({
+					block: 'center',
+					behavior: 'smooth'
+				});
+			}
 		}
 	}
 
