@@ -11,7 +11,6 @@
 			(a, b) => offsetsByScore[+b] - offsetsByScore[+a]
 		) as unknown as number[];
 		scoreSum = Object.values(offsetsByScore).reduce((acc, cur) => acc + cur, 0);
-		console.log(offsetsByScore);
 		currentOffset = offsets[0];
 	}
 </script>
