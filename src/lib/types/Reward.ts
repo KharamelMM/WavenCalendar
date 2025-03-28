@@ -1,4 +1,4 @@
-import type { Enums } from '$lib/supabase/database.types';
+import type { Enums } from '$lib/database/database.types';
 import type { RewardType } from './RewardType';
 
 export type Reward = BaseReward &

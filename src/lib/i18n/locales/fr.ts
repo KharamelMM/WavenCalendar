@@ -84,7 +84,7 @@ const locale: LocaleType = {
 	STATS_LABEL_COUNT_REWARDS: 'Nombre de récompenses enregistrées',
 	STATS_LABEL_OBJECTIVE: 'Objectif',
 
-	NAVIGATION_HOME: 'Compléter ton calendrier',
+	NAVIGATION_HOME: 'Complète ton calendrier',
 	NAVIGATION_STATS: 'Evolution du projet',
 	NAVIGATION_CALENDAR: 'Tableau des récompenses',
 

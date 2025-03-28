@@ -51,16 +51,16 @@
 				class="with-icon"
 				onclick={() => goto('/WavenCalendar')}
 			>
-				<div class="material-icon">edit_calendar</div>
-				<div class="text">{$_(t.NAVIGATION_HOME)}</div>
-			</button>
-			<button
-				disabled={$page.url.pathname === '/WavenCalendar/calendar'}
-				class="with-icon"
-				onclick={() => goto('/WavenCalendar/calendar')}
-			>
 				<div class="material-icon">calendar_month</div>
 				<div class="text">{$_(t.NAVIGATION_CALENDAR)}</div>
+			</button>
+			<button
+				disabled={$page.url.pathname === '/WavenCalendar/my'}
+				class="with-icon"
+				onclick={() => goto('/WavenCalendar/my')}
+			>
+				<div class="material-icon">edit_calendar</div>
+				<div class="text">{$_(t.NAVIGATION_HOME)}</div>
 			</button>
 		</div>
 		<div class="controls">

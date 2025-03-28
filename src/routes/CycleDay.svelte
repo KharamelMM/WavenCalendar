@@ -9,7 +9,7 @@
 	import { getRewardsClass } from '$lib/utils/rewards';
 	import { momentStore } from '$lib/utils/moment.store';
 	import Tooltip from '$lib/components/Tooltip.svelte';
-	import { setReward } from '$lib/supabase/calendar';
+	import { setReward } from '$lib/database/calendar';
 	import { currentProfile } from '$lib/utils/profile.store';
 	import { CYCLE_START } from '$lib/utils/const';
 	import { offsetInCycle } from '$lib/utils/date';

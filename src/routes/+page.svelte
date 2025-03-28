@@ -1,204 +1,119 @@
 <script lang="ts">
-	import Calendar from '$lib/components/Calendar.svelte';
-	import Card from '$lib/components/Card.svelte';
-	import DayForm from '$lib/components/DayForm.svelte';
 	import FlyingSection from '$lib/components/FlyingSection.svelte';
-	import Icon from '$lib/components/Icon.svelte';
-	import type { Reward } from '$lib/types/Reward';
-	import { CYCLE_START, DEFAULT_PROFILE_NAME, MONTHS } from '$lib/utils/const';
-	import type { Calendar as CalendarType } from '$lib/types/Calendar';
-	import { offsetInCycle } from '$lib/utils/date';
-	import Modal from '$lib/components/Modal.svelte';
-	import { deleteReward, getCalendar, setReward } from '$lib/supabase/calendar';
-	import { onDestroy, onMount } from 'svelte';
-	import { currentProfile } from '$lib/utils/profile.store';
+	import calendar from '$lib/data/calendar.json';
 	import { t } from '$lib/i18n';
 	import { _ } from 'svelte-i18n';
-	import ProfileModal from '$lib/components/ProfileModal.svelte';
-	import { get } from 'svelte/store';
-	import { momentStore } from '$lib/utils/moment.store';
+	import type { Reward } from '$lib/types/Reward';
+	import { CYCLE_LENGTH, CYCLE_START, DEFAULT_PROFILE_NAME } from '$lib/utils/const';
 	import Filters from '$lib/components/Filters.svelte';
+	import ProfileModal from '$lib/components/ProfileModal.svelte';
+	import { currentProfile } from '$lib/utils/profile.store';
+	import CycleDay from './CycleDay.svelte';
+	import type { Calendar } from '$lib/types/Calendar';
+	import { onDestroy } from 'svelte';
+	import { getCalendar } from '$lib/database/calendar';
+	import { getOffset } from '$lib/utils/rewards';
+	import { offsetInCycle } from '$lib/utils/date';
+	import OffsetsScore from './OffsetsScore.svelte';
+	import { browser } from '$app/environment';
 
-	let calendar: CalendarType = [];
+	const cycle: Calendar = [];
+	let personalCalendar: Calendar = [];
+	let offset = -1;
 
-	let year = new Date().getFullYear();
-	let selectedDay: Date | undefined;
+	let currentDay = -1;
+
+	$: offsetsByScore = getOffset(personalCalendar, cycle);
+
+	$: {
+		currentDay = getCurrentDay(offset);
+		if (browser) {
+			const el = document.querySelector(`#reward-${currentDay}`);
+			if (el) {
+				el.scrollIntoView({
+					block: 'center',
+					behavior: 'smooth'
+				});
+			}
+		}
+	}
+
 	let openProfileModal = false;
-	let animateMonthsSwipeLeftToRight: boolean = true;
 
-	function selectDay(date: Date) {
-		selectedDay = date;
+	for (const reward of calendar) {
+		cycle[reward.cycle_index] = reward as Reward;
 	}
 
-	function saveReward(reward: Reward) {
-		if (!selectedDay) {
-			throw new Error('No selected day');
+	function getCurrentDay(offset: number) {
+		if (offset < 0) {
+			return -1;
 		}
-
-		reward.validated = false;
-		calendar[offsetInCycle(selectedDay, CYCLE_START)] = reward;
-		selectedDay = undefined;
-
-		setReward(get(currentProfile), reward);
-	}
-
-	function getSelectedOffset() {
-		if (!selectedDay) {
-			throw new Error('No selected day');
-		}
-		// number of days between start date and selected date
-		return offsetInCycle(selectedDay, CYCLE_START);
-	}
-
-	function deleteSelectedReward() {
-		if (!selectedDay) {
-			throw new Error('No selected day');
-		}
-		const offset = getSelectedOffset();
-		deleteReward(get(currentProfile), offset);
-		calendar[offset] = undefined;
-		selectedDay = undefined;
+		const numberOfDaySinceStart = offsetInCycle(new Date(), CYCLE_START);
+		return (numberOfDaySinceStart - offset + CYCLE_LENGTH) % CYCLE_LENGTH;
 	}
 
 	const unsubscribe = currentProfile.subscribe(async (profile) => {
-		calendar = await getCalendar(profile);
+		personalCalendar = await getCalendar(profile);
 	});
 
-	onMount(async () => {
-		calendar = await getCalendar(get(currentProfile));
-	});
 	onDestroy(() => {
 		unsubscribe();
 	});
 </script>
-
-{#if selectedDay}
-	<Modal
-		title={$momentStore(selectedDay).format('dddd D MMMM yyyy')}
-		onclose={() => {
-			selectedDay = undefined;
-		}}
-	>
-		<div>{$_(t.REWARDS_FORM_INFO)}</div>
-		<DayForm
-			reward={calendar[getSelectedOffset()]}
-			oncancel={() => {
-				selectedDay = undefined;
-			}}
-			{...{
-				onsave: saveReward,
-				date: selectedDay,
-				ondelete: deleteSelectedReward
-			}}
-		/>
-	</Modal>
-{/if}
 
 {#if openProfileModal}
 	<ProfileModal onclose={() => (openProfileModal = false)} />
 {/if}
 
 <FlyingSection>
-	<header>
-		<button class="profile" onclick={() => (openProfileModal = true)}>
-			{$currentProfile !== DEFAULT_PROFILE_NAME ? `${$_(t.PROFILE)} : ${$currentProfile}` : $_(t.PROFILE_DEFAULT)}
-		</button>
-		<div class="year-controls">
-			<button
-				onclick={() => {
-					animateMonthsSwipeLeftToRight = true;
-					year--;
-				}}
-			>
-				<Icon>arrow_back_ios</Icon>
-			</button>
-			<h2>{year}</h2>
-			<button
-				onclick={() => {
-					animateMonthsSwipeLeftToRight = false;
-					year++;
-				}}
-			>
-				<Icon>arrow_forward_ios</Icon>
-			</button>
+	<div class="body">
+		<div class="info">
+			<h2>{$_(t.CALENDAR_TITLE)}</h2>
+			<div>
+				{$_(t.CALENDAR_INFO)}
+			</div>
 		</div>
 		<div>
-			<Filters />
+			<button class="profile" onclick={() => (openProfileModal = true)}>
+				{$currentProfile !== DEFAULT_PROFILE_NAME ? `${$_(t.PROFILE)} : ${$currentProfile}` : $_(t.PROFILE_DEFAULT)}
+			</button>
 		</div>
-	</header>
-	<div class="calendar">
-		{#key year}
-			<div class="year">
-				<FlyingSection leftToRight={animateMonthsSwipeLeftToRight}>
-					<div class="months">
-						{#each MONTHS as month, i}
-							<Card
-								title={$momentStore(new Date(0, i)).format('MMMM')}
-								outline={i === new Date().getMonth() && year === new Date().getFullYear()}
-							>
-								<Calendar {...{ month: i, year, onselectday: selectDay, calendar }} />
-							</Card>
-						{/each}
-					</div>
-				</FlyingSection>
-			</div>
-		{/key}
+		<OffsetsScore {offsetsByScore} bind:currentOffset={offset} />
+		<Filters />
+		<section>
+			{#each { length: CYCLE_LENGTH } as _, i}
+				<div class="reward" id={`reward-${i}`}>
+					<CycleDay reward={cycle[i]} index={i} currentIndex={getCurrentDay(offset)} {personalCalendar} />
+				</div>
+			{/each}
+		</section>
 	</div>
 </FlyingSection>
 
 <style>
-	:root {
-		overflow-y: scroll;
-	}
-
-	header {
+	.body {
 		display: flex;
-		justify-content: space-around;
 		flex-direction: column;
 		align-items: center;
-		padding: 0.25em 2em 0.5em 2em;
+		gap: 1.5em;
+		margin-bottom: 2em;
+		padding: 0 2em;
 	}
-	.profile {
-		height: 1em;
-		text-align: left;
-		box-shadow: none !important;
-	}
-	.year-controls {
-		flex: 1;
+	.info {
 		display: flex;
-		justify-content: center;
-		gap: 0.5em;
+		align-items: center;
+		flex-direction: column;
+		margin-top: 1em;
+	}
+	.info div {
+		max-width: 40em;
 	}
 
-	.year-controls > button {
-		box-shadow: none !important;
-		border: none;
-		color: var(--text);
-	}
-
-	.year-controls > button:hover {
-		color: var(--headline);
-	}
-
-	h2 {
-		text-align: center;
-		font-size: 2.5em;
-		margin: 0;
-	}
-	.months {
+	section {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.5em;
 		justify-content: center;
-		padding-bottom: 1em;
-	}
-
-	.calendar {
-		position: relative;
-		width: 100%;
-	}
-
-	.year {
-		position: absolute;
+		/* gap: 0.5em; */
+		font-size: 0.75em;
 	}
 </style>
