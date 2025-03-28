@@ -1,16 +1,12 @@
 <script lang="ts">
 	import { receive, send } from '$lib/animations/translate';
 	import { t } from '$lib/i18n';
-	import { supabase } from '$lib/supabase/client';
 	import { onMount } from 'svelte';
 	import { _, locale, isLoading, getLocaleFromNavigator } from 'svelte-i18n';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { session } from '$lib/utils/session.store';
-	import { exportAllFromSupabase } from '$lib/supabase/calendar';
 	import { localStorageStore } from '$lib/utils/localstorage.store';
 	import { get } from 'svelte/store';
-	import { logOut } from '$lib/supabase/auth';
 
 	const BUBBLE_LANG_ID = 'bubble_lang';
 
@@ -33,30 +29,6 @@
 	}
 
 	onMount(() => {
-		supabase.auth.getSession().then(({ data }) => {
-			session.set(data.session);
-			if (data.session) {
-				let localProfiles = get(localStorageStore).profiles;
-				if (
-					Object.keys(localProfiles).length === 0 ||
-					(Object.keys(localProfiles).length === 1 && Object.values(localProfiles)[0].length === 0)
-				) {
-					exportAllFromSupabase().then((profiles) => {
-						console.log('Exported all profiles from Supabase');
-						localStorageStore.update((localStorageValue) => {
-							localStorageValue.profiles = profiles;
-							return localStorageValue;
-						});
-						logOut();
-					});
-				}
-			}
-		});
-
-		supabase.auth.onAuthStateChange((_event, _session) => {
-			session.set(_session);
-		});
-
 		if (window.matchMedia('(prefers-color-scheme: light)').matches) {
 			swapDarkMode();
 		}
