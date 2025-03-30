@@ -22,8 +22,10 @@
 	export let index: number;
 	export let currentIndex: number = -1;
 	export let personalCalendar: Calendar = [];
+	export let noPadding: boolean = false;
+	export let noBackground: boolean = false;
 	let validated = false;
-	$: primary = index === currentIndex;
+	$: primary = index === currentIndex && currentIndex >= 0;
 	$: if (primary) {
 		validated = personalCalendar[offsetInCycle(new Date(), CYCLE_START)]?.validated ?? false;
 	}
@@ -56,21 +58,25 @@
 
 {#if !reward || !$localStorageStore.filters || (reward.type === RewardType.COMPANION || reward.type === RewardType.EQUIPMENT ? $localStorageStore.filters[reward.rarety] : $localStorageStore.filters[reward.type]) || primary}
 	<Tooltip
-		title={$momentStore()
-			.add(index - currentIndex, 'days')
-			.format('dddd DD MMMM YYYY')}
+		title={currentIndex >= 0
+			? $momentStore()
+					.add(index - currentIndex, 'days')
+					.format('dddd DD MMMM YYYY')
+			: undefined}
 	>
 		<section class:primary>
-			<Card width="10em" height="8.5em" {...{ primary, outline: primary }}>
+			<Card width="10em" height="8.5em" {...{ primary, noPadding, noBackground, outline: primary }}>
 				<div class="header">
 					<small>
-						{#if currentIndex > 0}
+						{#if currentIndex >= 0}
 							{$momentStore()
 								.add(index - currentIndex, 'days')
 								.format('DD MMM')}
 						{/if}
 					</small>
-					<small>{index}</small>
+					{#if index >= 0}
+						<small>{index}</small>
+					{/if}
 				</div>
 				<b>
 					{#if reward}

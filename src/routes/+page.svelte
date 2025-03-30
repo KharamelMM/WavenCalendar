@@ -16,6 +16,7 @@
 	import { offsetInCycle } from '$lib/utils/date';
 	import OffsetsScore from './OffsetsScore.svelte';
 	import { browser } from '$app/environment';
+	import Totals from './Totals.svelte';
 
 	const cycle: Calendar = [];
 	let personalCalendar: Calendar = [];
@@ -80,6 +81,7 @@
 		</div>
 		<OffsetsScore {offsetsByScore} bind:currentOffset={offset} />
 		<Filters />
+		<Totals {cycle} />
 		<section>
 			{#each { length: CYCLE_LENGTH } as _, i}
 				<div class="reward" id={`reward-${i}`}>

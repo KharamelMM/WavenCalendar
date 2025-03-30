@@ -14,6 +14,8 @@
 
 	export let width: string = 'auto';
 	export let height: string = 'auto';
+	export let noPadding: boolean = false;
+	export let noBackground: boolean = false;
 </script>
 
 <section
@@ -21,6 +23,8 @@
 	class:outline
 	class:modal
 	class:primary
+	class:noPadding
+	class:noBackground
 	class={classes}
 	style="width: {width}; height: {height}"
 >
@@ -64,6 +68,12 @@
 		width: fit-content;
 		border-radius: 0.5em;
 		max-width: 50em;
+	}
+	section.noPadding {
+		padding: 0;
+	}
+	section.noBackground {
+		background-color: transparent;
 	}
 
 	.body {
