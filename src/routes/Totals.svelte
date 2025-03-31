@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Calendar } from '$lib/types/Calendar';
+	import { RaretyType } from '$lib/types/RaretyType';
 	import type { Reward } from '$lib/types/Reward';
 	import { RewardType } from '$lib/types/RewardType';
 	import CycleDay from './CycleDay.svelte';
@@ -15,6 +16,7 @@
 		RewardType.EQUIPMENT,
 		RewardType.COMPANION
 	];
+	const raretyOrder = [RaretyType.COMMON, RaretyType.RARE, RaretyType.KROSMIC, RaretyType.INFINITE];
 
 	for (const rewardType of rewardOrder) {
 		if (rewardType === RewardType.RUNES || rewardType === RewardType.CHEST) {
@@ -51,8 +53,15 @@
 					raretyTotals[reward.rarety].amount += reward.amount;
 				}
 			}
-
-			totalRewards.push(...Object.values(raretyTotals));
+			// Sort raretyTotals by raretyOrder
+			const sortedRaretyTotals: { [key: string]: Reward } = {};
+			for (const rarety of raretyOrder) {
+				if (raretyTotals[rarety]) {
+					sortedRaretyTotals[rarety] = raretyTotals[rarety];
+				}
+			}
+			// Push sorted raretyTotals to totalRewards
+			totalRewards.push(...Object.values(sortedRaretyTotals));
 		} else {
 			const totalReward = { type: rewardType, amount: 0, cycle_index: -1 } as Reward;
 
@@ -61,7 +70,6 @@
 					totalReward.amount += reward.amount;
 				}
 			}
-			console.log(totalReward);
 			totalRewards.push(totalReward as Reward);
 		}
 	}
